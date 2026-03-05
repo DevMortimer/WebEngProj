@@ -68,7 +68,6 @@ Allowed files:
 Forbidden for all `dept/*` branches:
 - Any other department JSON files
 - Any other `src/Pages/departments/*.tsx` files
-- `src/Pages/departments/DepartmentTemplate.tsx`
 - `src/Pages/LandingPage.tsx`
 - `src/App.tsx`
 - Shared infrastructure/docs unless maintainer explicitly requests

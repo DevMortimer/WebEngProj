@@ -1,6 +1,6 @@
 # Department Page Customization Guide
 
-Each department has its own page file:
+Each department has its own full page file:
 
 - `src/Pages/departments/CE.tsx`
 - `src/Pages/departments/CPE.tsx`
@@ -13,22 +13,26 @@ Each department has its own page file:
 
 ## Add a Custom Section
 
-Inside your department TSX file, add an `extraSections` block and pass it to `DepartmentTemplate`.
+Edit your own department file directly and add a new `<section>` block.
 
 Example (`CE.tsx`):
 
 ```tsx
-import DepartmentTemplate from "./DepartmentTemplate";
-
 export default function CEPage() {
-  const extraSections = (
-    <section id="ce-custom" className="max-w-6xl mx-auto px-6 pt-16">
-      <h2 className="text-2xl font-bold">CE Custom Section</h2>
-      <p className="mt-2 text-sm text-gray-600">Your section content here.</p>
-    </section>
-  );
+  // ... existing code
 
-  return <DepartmentTemplate code="CE" extraSections={extraSections} />;
+  return (
+    <div className="bg-white">
+      {/* existing sections */}
+
+      <section id="ce-custom" className="max-w-6xl mx-auto px-6 pt-16">
+        <h2 className="text-2xl font-bold">CE Custom Section</h2>
+        <p className="mt-2 text-sm text-gray-600">Your section content here.</p>
+      </section>
+
+      {/* existing sections continue */}
+    </div>
+  );
 }
 ```
 
@@ -36,4 +40,4 @@ export default function CEPage() {
 
 - Edit only your own department TSX file.
 - Edit only your own JSON file in `public/data/departments/<CODE>.json`.
-- Do not modify shared template files unless maintainer approves.
+- Do not modify other departments' TSX/JSON files.
