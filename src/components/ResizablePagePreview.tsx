@@ -49,8 +49,26 @@ export default function ResizablePagePreview({
 
   const handleLoad = () => {
     if (pendingScrollY === null) return;
-    iframeRef.current?.contentWindow?.scrollTo({ top: pendingScrollY, behavior: "auto" });
+    const y = pendingScrollY;
     setPendingScrollY(null);
+
+    // The iframe fires "load" before React inside it finishes rendering,
+    // so the document isn't tall enough to scroll yet. Poll briefly until
+    // the content is tall enough or a timeout is reached.
+    const win = iframeRef.current?.contentWindow;
+    if (!win) return;
+
+    let attempts = 0;
+    const tryScroll = () => {
+      const docHeight = win.document.documentElement.scrollHeight;
+      if (docHeight > y || attempts >= 20) {
+        win.scrollTo({ top: y, behavior: "auto" });
+      } else {
+        attempts++;
+        requestAnimationFrame(tryScroll);
+      }
+    };
+    requestAnimationFrame(tryScroll);
   };
 
   return (
