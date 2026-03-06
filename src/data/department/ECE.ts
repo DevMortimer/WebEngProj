@@ -52,7 +52,7 @@ export const ECE = {
   faculty: {
     title: "Faculty",
     members: [
-      { name: "Engr. Sample Name", role: "Department Chair" },
+      { name: "Engr. Donald M. Lapiguera", role: "Department Chair" },
       { name: "Engr. Sample Name", role: "Faculty" },
     ],
   },
