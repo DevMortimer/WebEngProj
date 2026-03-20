@@ -108,24 +108,55 @@ export default function EEPage() {
       </section>
 
       <section id="peo" className="max-w-6xl mx-auto px-6 pt-16">
-        <SectionTitle center eyebrow={dept.title} title={dept.peo.title} subtitle={dept.peo.subtitle} />
+      <SectionTitle center eyebrow={dept.title} title={dept.peo.title} subtitle={dept.peo.subtitle} />
 
-        <div className="mt-10 grid grid-cols-12 gap-8 items-start">
-          <div className="col-span-12 md:col-span-6">
-            <div className="rounded-2xl overflow-hidden bg-gray-200">
-              <img src={dept.images.peo} alt="" className="w-full h-[320px] md:h-[400px] object-cover" />
-            </div>
-          </div>
-
-          <div className="col-span-12 md:col-span-6 text-justify">
-            <div className="space-y-5">
-              {dept.peo.bullets.map((b, idx) => (
-                <Bullet key={idx} title={`PEO ${idx + 1}`} text={b} />
-              ))}
-            </div>
+      <div className="mt-12 grid grid-cols-12 gap-12 items-center">
+        {/* Left Side: Floating Logo */}
+        <div className="col-span-12 md:col-span-5 flex justify-center">
+          <div className="relative p-6">
+            <img 
+              src={dept.images.peo} 
+              alt="Department Logo" 
+              className="relative w-full max-w-[320px] animate-logo-float object-contain z-10" 
+            />
           </div>
         </div>
-      </section>
+
+        {/* Right Side: Racing Light PEO Cards */}
+        <div className="col-span-12 md:col-span-7 space-y-4">
+          {dept.peo.bullets.map((b, idx) => (
+            <div 
+              key={idx} 
+              className="peo-card-racing group flex items-center gap-6 p-6 rounded-[1rem] transition-all duration-300 hover:shadow-lg"
+            >
+              {/* Number Badge */}
+              <div className="relative flex-shrink-0">
+                <div className="w-12 h-12 flex items-center justify-center rounded-full 
+                  bg-red-50 text-red-900 font-bold text-lg 
+                  group-hover:bg-red-900 group-hover:text-white 
+                  group-hover:shadow-[0_0_20px_rgba(153,27,27,0.4)]
+                  transition-all duration-300 z-10 relative">
+                  {idx + 1}
+                </div>
+                
+                {/* Subtle ring that expands on hover */}
+                <div className="absolute inset-0 rounded-full border border-red-900/0 group-hover:border-red-900/20 group-hover:scale-150 transition-all duration-500"></div>
+              </div>
+
+              {/* Text Content */}
+              <div className="flex-1 z-10">
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 group-hover:text-red-900 mb-1 transition-colors">
+                  PEO {idx + 1}
+                </h4>
+                <p className="text-gray-600 text-sm leading-relaxed text-justify text-justify-inter-word">
+                  {b}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
       <section id="so" className="max-w-6xl mx-auto px-6 pt-16">
         <SectionTitle center eyebrow={dept.title} title={dept.so.title} subtitle={dept.so.subtitle} />
