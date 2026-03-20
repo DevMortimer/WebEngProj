@@ -77,3 +77,56 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-logo-float {
+  animation: logo-float 6s ease-in-out infinite;
+}
+
+/* The "Racing Light" Animation */
+@keyframes border-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.peo-card-racing {
+  position: relative;
+  z-index: 1;
+  overflow: hidden; /* Clips the rotating light to the card shape */
+  background: white;
+}
+
+/* The actual light layer */
+.peo-card-racing::before {
+  content: "";
+  position: absolute;
+  inset: -50%; /* Large enough to cover corners while rotating */
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 75%,
+    #a90000 100% 
+  );
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* The white mask that leaves only a thin border gap */
+.peo-card-racing::after {
+  content: "";
+  position: absolute;
+  inset: 2px; /* This is your border thickness */
+  background: white;
+  border-radius: calc(1rem - 2px);
+  z-index: -1;
+}
+
+.peo-card-racing:hover::before {
+  opacity: 1;
+  animation: border-rotate 2s linear infinite;
+}
