@@ -217,7 +217,7 @@ export default function EEPage() {
         </div>
       </section>
 
-      <section id="curriculum" className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+      <section id="curriculum" className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
         <div className="text-center mb-10">
           <div className="text-xs font-semibold text-gray-400 tracking-wide uppercase">ELECTRICAL ENGINEERING</div>
           <h2 className="mt-2 text-3xl font-extrabold text-gray-900">{dept.curriculum.title}</h2>
@@ -430,7 +430,7 @@ export default function EEPage() {
         </div>
       </section>
 
-      <section id="faculty" className="max-w-6xl mx-auto px-2 md:px-6 pt-16 overflow-hidden">
+      <section id="faculty" className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 overflow-hidden">
         <SectionTitle center eyebrow={dept.title} title={dept.faculty.title} />
         
         <div className="relative mt-12 group h-105 md:h-112.5 max-w-4xl mx-auto">
