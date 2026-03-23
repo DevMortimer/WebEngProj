@@ -1,8 +1,8 @@
 export const landingPageData = {
   hero: {
-    eyebrow: "LANDING PAGE • HERO SECTION",
-    title: "Bulacan State University\nCollege of Engineering",
-    primaryButtonLabel: "Enter Department Pages",
+    eyebrow: "BULACAN STATE UNIVERSITY",
+    title: "COLLEGE OF\nENGINEERING",
+    primaryButtonLabel: "See Departments",
     primaryButtonHref: "/departments",
   },
   sections: {

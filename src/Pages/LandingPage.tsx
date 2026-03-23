@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { Building2, CalendarDays, Send, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { landingPageData, type LandingPageData } from "../data/landing";
 import {
@@ -208,10 +209,36 @@ export default function LandingPage() {
 
   const { hero, sections } = data;
   const navLinks = [
-    { label: "Home", href: "#hero" },
+    { label: "Home", href: "#hero", isRoute: false },
     { label: "Department", href: "/departments", isRoute: true },
-    { label: "Facilities", href: "#facilities" },
-    { label: "News", href: "#news" },
+    { label: "Facilities", href: "#facilities", isRoute: false },
+    { label: "News", href: "#news", isRoute: false },
+  ] as const;
+  const boardPrograms = sections.statistics.departmentStats.filter(
+    (department) => department.hasBoardExam,
+  ).length;
+  const latestBoardCycle = sections.statistics.departmentStats.reduce((latest, department) => {
+    if (!department.hasBoardExam || !("latestExamDate" in department)) return latest;
+
+    const latestExamDate = department.latestExamDate;
+    if (!latestExamDate) return latest;
+
+    const year = Number(latestExamDate.match(/\d{4}/)?.[0] ?? 0);
+    return year > latest ? year : latest;
+  }, 0);
+  const heroStats = [
+    { icon: Send, value: sections.statistics.totalStudents, label: "Current students" },
+    {
+      icon: Building2,
+      value: String(sections.statistics.departmentStats.length),
+      label: "Engineering Departments",
+    },
+    {
+      icon: CalendarDays,
+      value: latestBoardCycle ? String(latestBoardCycle) : "Now",
+      label: "Latest board cycle",
+    },
+    { icon: Users, value: String(boardPrograms), label: "Board exam programs" },
   ] as const;
 
   return (
@@ -262,21 +289,54 @@ export default function LandingPage() {
       </header>
 
       <main>
-        <section id="hero" className="max-w-6xl mx-auto px-6 py-16 md:py-20">
-          <div className="rounded-3xl bg-gradient-to-r from-[#f4efe3] via-[#ead9b5] to-[#d6b26f] p-8 md:p-12">
-            <p className="text-xs font-semibold tracking-[0.14em] text-[#6f4d12]">
-              {hero.eyebrow}
-            </p>
-            <h2 className="mt-4 text-3xl md:text-5xl font-black leading-tight text-[#2a1d0b] whitespace-pre-line">
-              {hero.title}
-            </h2>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                to={hero.primaryButtonHref}
-                className="rounded-full bg-[#2a1d0b] px-5 py-2 text-sm font-semibold text-white hover:bg-black"
-              >
-                {hero.primaryButtonLabel}
-              </Link>
+        <section id="hero" className="mx-auto max-w-6xl px-4 py-10 sm:px-6 md:py-14">
+          <div className="overflow-hidden rounded-[2rem] border border-[#ece7df] bg-white p-4 shadow-[0_25px_80px_rgba(15,23,42,0.08)] sm:p-5 md:p-6">
+            <div className="relative overflow-hidden rounded-[1.75rem] bg-[#080606]">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_28%_40%,rgba(167,18,0,0.48),transparent_30%),radial-gradient(circle_at_48%_94%,rgba(255,123,63,0.4),transparent_28%),linear-gradient(125deg,rgba(7,7,7,0.96),rgba(16,9,8,0.88)_45%,rgba(3,3,3,0.98))]" />
+              <div
+                className="absolute inset-y-0 left-[-8%] w-[52%] bg-contain bg-left bg-no-repeat opacity-[0.18]"
+                style={{ backgroundImage: "url('/departments/ME/watermark.png')" }}
+              />
+              <div
+                className="absolute inset-y-0 right-[-6%] w-[44%] bg-contain bg-right bg-no-repeat opacity-[0.12]"
+                style={{
+                  backgroundImage: "url('/departments/ME/watermark.png')",
+                  transform: "scaleX(-1) rotate(12deg)",
+                }}
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),transparent_18%,transparent_80%,rgba(255,255,255,0.03))]" />
+
+              <div className="relative z-10 flex min-h-[26rem] flex-col items-center justify-center px-6 py-16 text-center md:min-h-[28rem] md:px-16">
+                <p className="text-sm font-semibold tracking-[0.12em] text-white/80 md:text-base">
+                  {hero.eyebrow}
+                </p>
+                <h2 className="mt-5 max-w-[8ch] whitespace-pre-line text-5xl font-black leading-[0.93] text-white sm:text-6xl md:text-7xl">
+                  {hero.title}
+                </h2>
+
+                <div className="mt-9">
+                  <Link
+                    to={hero.primaryButtonHref}
+                    className="inline-flex items-center justify-center rounded-full border-[5px] border-[#8c95c6] bg-[#ef8f33] px-8 py-3.5 text-lg font-semibold text-white shadow-[0_14px_30px_rgba(239,143,51,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#f39a44] sm:px-10"
+                  >
+                    {hero.primaryButtonLabel}
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-4 border-t border-[#f1ece4] px-2 py-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-6">
+              {heroStats.map(({ icon: Icon, value, label }) => (
+                <div key={label} className="flex items-start gap-3 rounded-2xl px-3 py-1">
+                  <span className="mt-1 text-[#bcc1cf]">
+                    <Icon className="h-5 w-5" strokeWidth={1.8} />
+                  </span>
+                  <div>
+                    <p className="text-[1.75rem] font-bold leading-none text-[#252525]">{value}</p>
+                    <p className="mt-2 text-sm text-[#8d8d93]">{label}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
