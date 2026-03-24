@@ -47,14 +47,32 @@ export const CPE = {
 
   peo: {
     title: "Program Educational Objectives",
-    subtitle: "EDIT ME: subtitle",
-    bullets: [
-      "To equip the graduates with a strong foundation in the basic physical and engineering sciences which could be a tool in planning, designing, development, management, and maintenance of computer systems.",
-      "To prepare graduates to lead in the design, analysis and applications of hardware and software computing structures for professional Computer Engineering career.",
-      "To arm the graduates to be knowledgeable of human, financial, physical and resource management and equip them with essential graduate research skills, specializing in one of the Computer Engineering fields.",
-      "To promote the holistic growth of the graduates by providing them with opportunities to enhance not only their vocational skills but also their life perspectives and value-system.",
-      "To develop critical thinking and scientific inquiry through active participation and research endeavors.",
-      "To promote a strong sense of nationalism through productive involvement in extension and community outreach programs."
+    subtitle: "Three to five years after graduation, BulSU BSCpE alumni shall:",
+    items: [
+      { 
+        title: "Engineering Foundations", 
+        text: "To equip the graduates with a strong foundation in the basic physical and engineering sciences which could be a tool in planning, designing, development, management, and maintenance of computer systems." 
+      },
+      { 
+        title: "Technical Expertise", 
+        text: "To prepare graduates to lead in the design, analysis and applications of hardware and software computing structures for professional Computer Engineering career." 
+      },
+      { 
+        title: "Leadership & Research", 
+        text: "To arm the graduates to be knowledgeable of human, financial, physical and resource management and equip them with essential graduate research skills, specializing in one of the Computer Engineering fields." 
+      },
+      { 
+        title: "Professional Ethics", 
+        text: "To promote the holistic growth of the graduates by providing them with opportunities to enhance not only their vocational skills but also their life perspectives and value-system." 
+      },
+      { 
+        title: "Innovation & Inquiry", 
+        text: "To develop critical thinking and scientific inquiry through active participation and research endeavors." 
+      },
+      { 
+        title: "Nation-Building", 
+        text: "To promote a strong sense of nationalism through productive involvement in extension and community outreach programs." 
+      }
     ],
   },
 
