@@ -1,45 +1,104 @@
 {
   "code": "CE",
   "title": "CIVIL ENGINEERING",
-  "subtitle": "Bachelor of Science in Civil Engineering",
-  "theme": { "accentHex": "#2563eb" },
+  "subtitle": "Bachelor of Science in",
+  "theme": { "accentHex": "#1F3A4D", "primaryGold": "#D4AF37" },
   "images": {
-    "heroLeft": "/departments/CE/hero-left.png",
-    "heroBig": "/departments/CE/hero-big.png",
-    "heroSmall1": "/departments/CE/hero-small-1.png",
-    "heroSmall2": "/departments/CE/hero-small-2.png",
+    "heroCarousel": [
+      "/departments/CE/hero1.png",
+      "/departments/CE/hero2.png",
+      "/departments/CE/hero3.png",
+      "/departments/CE/hero-small-2.png"
+    ],
     "peo": "/departments/CE/peo.png",
     "watermark": "/departments/CE/watermark.png"
   },
   "programOverview": {
     "heading": "Program Overview",
-    "text": "EDIT ME: Civil Engineering program overview.",
-    "stats": { "nonTeaching": 11, "faculty": 22, "students": 333 }
+    "subheading": "Engineering the Future, Building the Nation",
+    "text": "At Bulacan State University, the Bachelor of Science in Civil Engineering is more than a degree—it is a commitment to engineering the backbone of society. Our program is a rigorous journey that fuses deep theoretical understanding with the practical demands of a rapidly evolving global landscape.\n\nFrom the intricacies of structural design to the challenges of sustainable water resource management, our students are immersed in an environment that prizes innovation, precision, and resilience. We leverage state-of-the-art technology and real-world field experiences to ensure our engineers are prepared for the complexities of the 21st century.\n\nRooted in a legacy of service and excellence, we produce professionals who are not just experts in their field, but ethical leaders dedicated to building a stronger, more sustainable nation.",
+    "stats": { "faculty": 14 }
   },
-  "peo": {
-    "title": "Program Educational Objectives",
-    "subtitle": "EDIT ME: PEO subtitle.",
-    "bullets": ["PEO 1...", "PEO 2...", "PEO 3..."]
-  },
-  "so": {
-    "title": "Student Outcomes",
-    "subtitle": "EDIT ME: SO subtitle.",
-    "outcomes": [
-      { "title": "SO 1", "text": "Description..." },
-      { "title": "SO 2", "text": "Description..." },
-      { "title": "SO 3", "text": "Description..." }
+  "licensureExam": {
+    "eyebrow": "EXCELLENCE",
+    "title": "Licensure Examination for Civil Engineers (CELE)",
+    "subtitle": "Consistently delivering high performance in professional licensure examinations.",
+    "results": [
+      {
+        "period": "April 2025",
+        "stats": [
+          { "label": "First Time Takers", "value": "68.97%" },
+          { "label": "Institutional Rating", "value": "47.46%" },
+          { "label": "National Passing Rate", "value": "29.21%" }
+        ]
+      },
+      {
+        "period": "November 2025",
+        "stats": [
+          { "label": "First Time Takers", "value": "66.67%" },
+          { "label": "Institutional Rating", "value": "31.03%" },
+          { "label": "National Passing Rate", "value": "30.39%" }
+        ]
+      }
     ]
   },
-  "curriculum": {
+  "peo": {
+    "eyebrow": "MISSION ORIENTED",
+    "title": "Program Educational Objectives",
+    "subtitle": "The graduates of the Civil Engineering program are expected to achieve the following within a few years of graduation:",
+    "bullets": [
+      "Demonstrate proficiency in the application of civil engineering principles to solve complex engineering problems.",
+      "Exhibit leadership and professionalism in their chosen career paths.",
+      "Engage in lifelong learning and professional development to keep pace with the advancements in the field."
+    ]
+  },
+  "so": {
+    "eyebrow": "COMPETENCIES",
+    "title": "Student Outcomes",
+    "subtitle": "By the time of graduation, the students of the Civil Engineering program shall have the ability to:",
+    "outcomes": [
+      { "title": "SO 1", "text": "Apply knowledge of mathematics, science, and engineering fundamentals." },
+      { "title": "SO 2", "text": "Design and conduct experiments, as well as analyze and interpret data." },
+      { "title": "SO 3", "text": "Design a system, component, or process to meet desired needs within realistic constraints." },
+      { "title": "SO 4", "text": "Function effectively on multi-disciplinary teams." },
+      { "title": "SO 5", "text": "Identify, formulate, and solve engineering problems." },
+      { "title": "SO 6", "text": "Understand professional and ethical responsibility." }
+    ]
+  },
+  "curriculumOverview": {
+    "eyebrow": "LEARNING PATH",
     "title": "Curriculum Overview",
-    "text": "EDIT ME: curriculum overview text.",
-    "bullets": ["Bullet 1", "Bullet 2", "Bullet 3"]
+    "text": "Our curriculum is structured to provide a balance between theoretical knowledge and practical application. It includes core engineering courses, specialized electives, and hands-on laboratory experiences.",
+    "bullets": [
+      "Strong foundation in Mathematics and Basic Sciences",
+      "Comprehensive Core Civil Engineering Courses",
+      "Specialized Electives in Various Tracks",
+      "Integration of Design and Research Projects"
+    ]
+  },
+  "programCurriculum": {
+    "eyebrow": "ACADEMIC MAP",
+    "title": "Program Curriculum",
+    "years": [
+      { "year": "First Year", "semesters": ["1st Semester", "2nd Semester"] },
+      { "year": "Second Year", "semesters": ["1st Semester", "2nd Semester"] },
+      { "year": "Third Year", "semesters": ["1st Semester", "2nd Semester"] },
+      { "year": "Fourth Year", "semesters": ["1st Semester", "2nd Semester"] }
+    ]
   },
   "laboratories": {
+    "eyebrow": "RESOURCES",
     "title": "Laboratories",
-    "items": ["Materials Lab", "Surveying Lab", "Hydraulics Lab"]
+    "description": "Empowering students through advanced experimental learning and cutting-edge research environments.",
+    "items": [
+      "Materials Testing Lab",
+      "Geotechnical Engineering Lab",
+      "Hydraulics and Water Resources Lab",
+      "Surveying and Geomatics Lab"
+    ]
   },
   "faculty": {
+    "eyebrow": "LEADERSHIP",
     "title": "Faculty",
     "members": [
       { "name": "Engr. Sample 1", "role": "Chair" },
@@ -47,6 +106,7 @@
     ]
   },
   "careers": {
+    "eyebrow": "FUTURE PATHS",
     "title": "Career Opportunities",
     "subtitle": "EDIT ME: careers subtitle.",
     "cards": [

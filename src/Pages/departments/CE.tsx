@@ -79,8 +79,96 @@ function ImageStack({ images }: { images: string[] }) {
   );
 }
 
+function PEOSlider({ objectives }: { objectives: any[] }) {
+  const [current, setCurrent] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const handleSetCurrent = (idx: number) => {
+    if (isAnimating || idx === current) return;
+    setIsAnimating(true);
+    setCurrent(idx);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
+
+  return (
+    <div className="relative max-w-5xl mx-auto">
+      {/* Blueprint Grid Background Decoration */}
+      <div className="absolute -inset-10 opacity-[0.03] pointer-events-none -z-10 overflow-hidden">
+        <div className="w-full h-full" style={{ backgroundImage: 'linear-gradient(#1F3A4D 1px, transparent 1px), linear-gradient(90deg, #1F3A4D 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+      </div>
+
+      <div className="flex flex-col lg:flex-row gap-8 items-stretch">
+        {/* Left Side: Vertical Tabs */}
+        <div className="lg:w-1/3 flex flex-col gap-4">
+          {objectives.map((obj, idx) => (
+            <button
+              key={obj.id}
+              onClick={() => handleSetCurrent(idx)}
+              className={`group relative p-6 rounded-2xl text-left transition-all duration-500 border-l-4 ${
+                current === idx 
+                ? "ce-bg-navy ce-border-gold shadow-xl -translate-x-2" 
+                : "bg-white border-transparent hover:bg-gray-50 text-gray-400"
+              }`}
+            >
+              <div className={`text-[10px] font-black tracking-[0.2em] mb-1 ${current === idx ? "ce-text-gold" : "text-gray-300"}`}>
+                {obj.id}
+              </div>
+              <div className={`font-black text-sm uppercase tracking-tight ${current === idx ? "text-white" : "ce-text-navy"}`}>
+                {obj.title}
+              </div>
+              {current === idx && (
+                <div className="absolute right-6 top-1/2 -translate-y-1/2 text-gold-400 ce-animate-fade-in">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </div>
+              )}
+            </button>
+          ))}
+          
+          <div className="mt-auto p-6 ce-bg-gold/10 rounded-2xl border border-gold-200/20 hidden lg:block">
+            <div className="text-[10px] font-black ce-text-navy/40 uppercase tracking-widest mb-2">Core Vision</div>
+            <p className="text-xs font-bold ce-text-navy/60 italic leading-relaxed">
+              "Engineering solutions that bridge the gap between imagination and reality."
+            </p>
+          </div>
+        </div>
+
+        {/* Right Side: Main Content Card */}
+        <div className="lg:w-2/3">
+          <div className="h-full overflow-hidden bg-white p-10 md:p-16 rounded-[3rem] shadow-2xl border border-gray-100 relative flex flex-col justify-center min-h-[450px]">
+            {/* Technical Detail Elements */}
+            <div className="absolute top-10 right-10 flex gap-1">
+              {[1, 2, 3].map(i => <div key={i} className={`w-1 h-1 rounded-full ${i <= current + 1 ? 'ce-bg-gold' : 'bg-gray-200'}`}></div>)}
+            </div>
+            
+            <div className="absolute bottom-0 right-0 w-48 h-48 opacity-[0.03] select-none -z-10 translate-x-10 translate-y-10">
+              <svg viewBox="0 0 100 100" className="w-full h-full fill-current ce-text-navy">
+                <path d="M0 0h100v100H0zM10 10h80v80H10z"/>
+                <path d="M20 20h60v60H20zM30 30h40v40H30z"/>
+              </svg>
+            </div>
+
+            <div className={`transition-all duration-500 transform ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
+              <div className="inline-block px-4 py-1 ce-bg-navy rounded-full text-[10px] font-black ce-text-gold uppercase tracking-[0.3em] mb-8">
+                Detailed Objective
+              </div>
+              <h3 className="text-3xl md:text-5xl font-black ce-text-navy mb-8 leading-tight uppercase tracking-tighter">
+                {objectives[current].title}
+              </h3>
+              <div className="w-20 h-1.5 ce-bg-gold mb-8 rounded-full"></div>
+              <p className="text-xl text-gray-600 leading-relaxed font-medium">
+                {objectives[current].description}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function CEPage() {
   const [baseDept] = useState<typeof CE>(CE);
+  const [activeId, setActiveId] = useState<string>("home");
 
   const dept = useMemo(
     () => mergeDeptWithOverrides(baseDept),
@@ -88,6 +176,32 @@ export default function CEPage() {
   );
 
   const heroImages = useMemo(() => dept.images.heroCarousel, [dept.images.heroCarousel]);
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveId(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const sections = ["home", "about", "cele", "peo", "so", "curriculum", "laboratories", "faculty", "careers"];
+    
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!dept) return;
@@ -110,7 +224,7 @@ export default function CEPage() {
 
   return (
     <div className="bg-white ce-text-dark selection:bg-gold-200 overflow-x-hidden">
-      <Navbar onNav={onNav} />
+      <Navbar onNav={onNav as any} activeId={activeId as any} />
 
       {/* Hero Section - Initial Entrance */}
       <section id="home" className="max-w-6xl mx-auto px-6 pt-16">
@@ -124,7 +238,41 @@ export default function CEPage() {
           <h1 className="text-4xl md:text-7xl font-black tracking-tight ce-text-navy uppercase ce-animate-fade-in ce-delay-4">
             {dept.title}
           </h1>
-          {/* Explore Curriculum Button - REMOVED */}
+
+          <div className="mt-12 relative ce-animate-fade-in ce-delay-6 flex flex-col items-center">
+            {/* Decorative background glow */}
+            <div className="absolute inset-0 bg-gold-400/5 blur-3xl rounded-full -z-10 scale-150"></div>
+            
+            <div className="relative py-10 px-6 md:px-16 flex flex-col items-center">
+              {/* Architectural Corner Accents */}
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 ce-border-gold/30"></div>
+              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 ce-border-gold/30"></div>
+              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 ce-border-gold/30"></div>
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 ce-border-gold/30"></div>
+
+              <div className="text-lg md:text-2xl font-black ce-text-navy tracking-[0.2em] uppercase text-center leading-relaxed">
+                Bounded by <span className="ce-text-gold">Synergy</span>
+                <span className="mx-6 hidden md:inline opacity-20 text-navy/30">|</span>
+                <br className="md:hidden" />
+                Committed to <span className="ce-text-gold">Excellence</span>
+              </div>
+              
+              <div className="mt-10 relative group">
+                {/* Animated glow on hover */}
+                <div className="absolute -inset-4 bg-gold-400/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                
+                <div className="relative flex items-center gap-4 md:gap-8">
+                   <div className="h-[1px] w-8 md:w-16 ce-bg-gold/40"></div>
+                   <div className="text-[10px] md:text-xs font-black ce-text-navy tracking-[0.8em] uppercase flex items-center whitespace-nowrap bg-white px-4 py-1">
+                     PRIDE <span className="mx-3 md:mx-5 text-[6px] ce-text-gold">■</span> 
+                     HONOR <span className="mx-3 md:mx-5 text-[6px] ce-text-gold">■</span> 
+                     DIGNITY
+                   </div>
+                   <div className="h-[1px] w-8 md:w-16 ce-bg-gold/40"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <FadeInSection delay="ce-delay-8">
@@ -135,28 +283,70 @@ export default function CEPage() {
       {/* 1. Program Overview */}
       <section id="about" className="ce-bg-light mt-32 py-24">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-            <FadeInSection delay="ce-delay-1">
-              <div className="text-sm font-black ce-text-gold tracking-[0.3em] uppercase mb-6">
-                {dept.programOverview.heading}
-              </div>
-              <h2 className="text-4xl md:text-5xl font-black ce-text-navy leading-tight">
-                {dept.programOverview.subheading}
-              </h2>
-              <p className="mt-8 text-lg text-gray-600 leading-relaxed font-medium">
-                {dept.programOverview.text}
-              </p>
-            </FadeInSection>
-            <div className="grid grid-cols-1 gap-8">
-              <FadeInSection delay="ce-delay-2" className="bg-white p-10 rounded-3xl shadow-sm border-l-8 ce-border-gold transition-transform hover:-translate-x-2">
-                <Stat value={dept.programOverview.stats.students} label="Enrolled Students" color="var(--primary-navy)" />
+          <div className="flex flex-col lg:flex-row gap-20 items-start">
+            <div className="lg:w-1/2">
+              <FadeInSection delay="ce-delay-1">
+                <div className="text-sm font-black ce-text-gold tracking-[0.3em] uppercase mb-6">
+                  {dept.programOverview.heading}
+                </div>
+                <h2 className="text-4xl md:text-5xl font-black ce-text-navy leading-tight">
+                  {dept.programOverview.subheading}
+                </h2>
+                <div className="mt-8 text-xl text-gray-600 leading-relaxed font-medium space-y-6">
+                  {dept.programOverview.text.split("\n\n").map((para, idx) => (
+                    <p key={idx}>{para}</p>
+                  ))}
+                </div>
               </FadeInSection>
-              <div className="grid grid-cols-2 gap-8">
-                <FadeInSection delay="ce-delay-3" className="bg-white p-10 rounded-3xl shadow-sm border-l-8 border-gray-200 transition-transform hover:-translate-y-2">
-                  <Stat value={dept.programOverview.stats.faculty} label="Expert Faculty" color="var(--primary-navy)" />
+            </div>
+            
+            <div className="lg:w-1/2 w-full space-y-8">
+              {/* Performance Card */}
+              <FadeInSection delay="ce-delay-3" className="bg-white p-10 rounded-[2.5rem] shadow-xl border-t-8 ce-border-gold">
+                <div className="flex items-center gap-4 mb-8">
+                   <div className="w-12 h-12 rounded-xl ce-bg-navy flex items-center justify-center text-white">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+                   </div>
+                   <h3 className="text-xl font-black ce-text-navy uppercase tracking-tight">Licensure Performance</h3>
+                </div>
+                
+                <div className="space-y-6">
+                  <div className="relative pt-2">
+                    <div className="flex justify-between mb-2">
+                      <span className="text-xs font-bold ce-text-navy uppercase tracking-widest">BulSU Average</span>
+                      <span className="text-xs font-black ce-text-gold">70-76%</span>
+                    </div>
+                    <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full ce-bg-gold rounded-full w-[74%] transition-all duration-1000 ce-delay-10"></div>
+                    </div>
+                  </div>
+                  <div className="relative pt-2">
+                    <div className="flex justify-between mb-2">
+                      <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">National Average</span>
+                      <span className="text-xs font-black text-gray-400">30-40%</span>
+                    </div>
+                    <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-gray-300 rounded-full w-[35%] transition-all duration-1000 ce-delay-10"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                <p className="mt-8 text-xs font-bold text-gray-400 italic">
+                  * Consistently performing above the national passing rate for over a decade.
+                </p>
+              </FadeInSection>
+
+              {/* Accreditation Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FadeInSection delay="ce-delay-4" className="bg-white p-8 rounded-[2rem] shadow-lg border border-gray-100">
+                  <div className="text-[10px] font-black ce-text-gold uppercase tracking-[0.2em] mb-2">Accreditation</div>
+                  <div className="text-lg font-black ce-text-navy leading-tight">{dept.programOverview.stats.accreditation}</div>
+                  <div className="mt-4 text-[10px] text-gray-400 font-bold uppercase">AACCUP Accredited</div>
                 </FadeInSection>
-                <FadeInSection delay="ce-delay-4" className="bg-white p-10 rounded-3xl shadow-sm border-l-8 border-gray-200 transition-transform hover:-translate-y-2">
-                  <Stat value={dept.programOverview.stats.nonTeaching} label="Support Staff" color="var(--primary-navy)" />
+                <FadeInSection delay="ce-delay-5" className="bg-white p-8 rounded-[2rem] shadow-lg border border-gray-100">
+                  <div className="text-[10px] font-black ce-text-gold uppercase tracking-[0.2em] mb-2">CHED Recognition</div>
+                  <div className="text-lg font-black ce-text-navy leading-tight">{dept.programOverview.stats.ched}</div>
+                  <div className="mt-4 text-[10px] text-gray-400 font-bold uppercase">Program Compliance</div>
                 </FadeInSection>
               </div>
             </div>
@@ -164,8 +354,47 @@ export default function CEPage() {
         </div>
       </section>
 
+      {/* 1.5 Licensure Examination Section */}
+      {dept.licensureExam && (
+        <section id="cele" className="py-24 bg-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <FadeInSection delay="ce-delay-1">
+              <SectionTitle 
+                center 
+                eyebrow={dept.licensureExam.eyebrow} 
+                title={dept.licensureExam.title} 
+                subtitle={dept.licensureExam.subtitle} 
+              />
+            </FadeInSection>
+
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-10">
+              {dept.licensureExam.results.map((result, rIdx) => (
+                <FadeInSection 
+                  key={rIdx} 
+                  delay={`ce-delay-${rIdx + 2}`}
+                  className="bg-gray-50 p-8 md:p-12 rounded-[2.5rem] border border-gray-100 hover:shadow-xl transition-all"
+                >
+                  <h3 className="text-2xl font-black ce-text-navy mb-8 flex items-center gap-4">
+                    <span className="w-12 h-0.5 ce-bg-gold"></span>
+                    {result.period}
+                  </h3>
+                  <div className="grid grid-cols-1 gap-6">
+                    {result.stats.map((stat, sIdx) => (
+                      <div key={sIdx} className="flex justify-between items-center border-b border-gray-200 pb-4">
+                        <span className="text-gray-500 font-bold uppercase text-xs tracking-wider">{stat.label}</span>
+                        <span className="text-2xl font-black ce-text-gold">{stat.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </FadeInSection>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* 2. Program Educational Objectives */}
-      <section id="peo" className="max-w-6xl mx-auto px-6 py-32">
+      <section id="peo" className="max-w-6xl mx-auto px-6 py-32 overflow-hidden">
         <FadeInSection delay="ce-delay-1">
           <SectionTitle 
             center 
@@ -175,52 +404,67 @@ export default function CEPage() {
           />
         </FadeInSection>
 
-        <div className="mt-20 grid grid-cols-12 gap-16 items-center">
-          <div className="col-span-12 md:col-span-5 order-2 md:order-1">
-            <div className="space-y-10">
-              {dept.peo.bullets.map((b, idx) => (
-                <FadeInSection key={idx} delay={`ce-delay-${idx + 2}`} className="flex gap-8 group">
-                  <div className="flex-shrink-0 w-16 h-16 rounded-2xl ce-bg-navy flex items-center justify-center text-white font-black text-xl transition-all group-hover:ce-bg-gold group-hover:scale-110 shadow-lg">
-                    {idx + 1}
-                  </div>
-                  <div className="pt-2">
-                    <p className="text-lg text-gray-700 leading-relaxed font-semibold group-hover:ce-text-navy transition-colors">{b}</p>
-                  </div>
-                </FadeInSection>
-              ))}
-            </div>
-          </div>
-
-          <div className="col-span-12 md:col-span-7 order-1 md:order-2">
-            <FadeInSection delay="ce-delay-3" className="relative group">
-              <div className="absolute -top-6 -right-6 w-full h-full ce-bg-gold rounded-[3rem] -z-10 opacity-10 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
-              <div className="rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white">
-                <img src={dept.images.peo} alt="PEO" className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105" />
-              </div>
-            </FadeInSection>
-          </div>
+        <div className="mt-20">
+          <PEOSlider objectives={dept.peo.objectives} />
         </div>
       </section>
 
       {/* 3. Student Outcomes */}
       <section id="so" className="ce-bg-navy py-32 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
-        <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
-          <FadeInSection delay="ce-delay-1">
-            <div className="text-sm font-black ce-text-gold tracking-[0.3em] uppercase mb-6">{dept.so.eyebrow}</div>
-            <h2 className="text-4xl md:text-6xl font-black mb-8">{dept.so.title}</h2>
-            <p className="text-gray-400 max-w-3xl mx-auto text-xl mb-20">{dept.so.subtitle}</p>
+        {/* Background Decorative Elements */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-navy-400/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-[120px] pointer-events-none"></div>
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <FadeInSection delay="ce-delay-1" className="text-center">
+            <div className="text-sm font-black ce-text-gold tracking-[0.4em] uppercase mb-6">{dept.so.eyebrow}</div>
+            <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter uppercase italic">
+              {dept.so.title.split(' ')[0]} <span className="ce-text-gold">{dept.so.title.split(' ')[1]}</span>
+            </h2>
+            <p className="text-gray-400 max-w-3xl mx-auto text-xl mb-24 font-medium leading-relaxed">
+              {dept.so.subtitle}
+            </p>
           </FadeInSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {dept.so.outcomes.map((o, idx) => (
-              <FadeInSection key={idx} delay={`ce-delay-${(idx % 3) + 2}`} className="bg-white/5 backdrop-blur-md border border-white/10 p-10 rounded-[2rem] text-left hover:bg-white/10 hover:border-white/20 transition-all duration-300 group">
-                <div className="w-14 h-14 rounded-2xl ce-bg-gold flex items-center justify-center text-navy font-black text-2xl mb-8 group-hover:scale-110 transition-transform">
-                  {o.title.split(" ")[1] || idx + 1}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {dept.so.outcomes.map((o: any, idx: number) => (
+              <FadeInSection 
+                key={idx} 
+                delay={`ce-delay-${(idx % 4) + 1}`} 
+                className="group relative bg-white/[0.03] backdrop-blur-sm border border-white/10 p-8 rounded-[2.5rem] hover:bg-white/[0.08] hover:border-gold-500/30 transition-all duration-500 flex flex-col h-full"
+              >
+                {/* Letter Indicator */}
+                <div className="absolute top-6 right-8 text-6xl font-black text-white/5 group-hover:text-gold-500/10 transition-colors duration-500 select-none">
+                  {o.title}
                 </div>
-                <p className="text-gray-200 leading-relaxed font-medium text-lg">{o.text}</p>
+
+                <div className="mb-6 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl ce-bg-gold flex items-center justify-center text-navy font-black text-xl group-hover:scale-110 transition-transform duration-500 shadow-lg shadow-gold-500/20">
+                    {o.title.toUpperCase()}
+                  </div>
+                  <h3 className="text-lg font-black text-white uppercase tracking-tight leading-tight group-hover:ce-text-gold transition-colors">
+                    {o.subtitle}
+                  </h3>
+                </div>
+
+                <div className="h-[2px] w-12 ce-bg-gold/30 mb-6 group-hover:w-full transition-all duration-700"></div>
+
+                <p className="text-gray-400 group-hover:text-gray-200 leading-relaxed font-medium transition-colors">
+                  {o.text}
+                </p>
+
+                {/* Corner Accent */}
+                <div className="absolute bottom-0 right-0 w-12 h-12 overflow-hidden rounded-br-[2.5rem]">
+                   <div className="absolute bottom-0 right-0 w-0 h-0 border-b-[40px] border-r-[40px] border-transparent group-hover:border-r-gold-500/20 transition-all duration-500"></div>
+                </div>
               </FadeInSection>
             ))}
+          </div>
+
+          <div className="mt-24 p-12 rounded-[3rem] border border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent text-center">
+             <p className="text-gray-500 font-bold italic text-lg max-w-4xl mx-auto">
+               "These outcomes ensure that our graduates are not only technically proficient but also socially responsible and ready to lead the global infrastructure landscape."
+             </p>
           </div>
         </div>
       </section>
