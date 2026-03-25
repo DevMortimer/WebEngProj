@@ -397,8 +397,6 @@ export default function CEPage() {
   );
 
   const baseDir = "/departments/CE"; // Ensure baseDir is correct for downloads
-  const graphImages = [`${baseDir}/graph1.png`, `${baseDir}/graph2.png`];
-  const chartImages = [`${baseDir}/chart1.png`, `${baseDir}/chart2.png`];
 
   const heroImages = useMemo(() => dept.images.heroCarousel, [dept.images.heroCarousel]);
 
@@ -916,7 +914,7 @@ export default function CEPage() {
       <ImagePreviewModal 
         isOpen={isGraphModalOpen} 
         onClose={() => setIsGraphModalOpen(false)} 
-        images={graphImages} 
+        images={dept.licensureExam.performanceGraphs || []} 
         title="Performance Graphs"
         eyebrow="Licensure Visualization"
       />
@@ -924,7 +922,7 @@ export default function CEPage() {
       <ImagePreviewModal 
         isOpen={isChartModalOpen} 
         onClose={() => setIsChartModalOpen(false)} 
-        images={chartImages} 
+        images={dept.faculty.organizationalCharts || []} 
         title="Organizational Charts"
         eyebrow="Department Hierarchy"
       />

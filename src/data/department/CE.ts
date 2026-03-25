@@ -8,10 +8,6 @@ export const CE = {
   theme: { accentHex: "#1F3A4D", primaryGold: "#D4AF37" },
 
   images: {
-    heroBig: `${base}/hero1.png`,
-    heroLeft: `${base}/hero2.png`,
-    heroSmall1: `${base}/hero3.png`,
-    heroSmall2: `${base}/hero4.png`,
     heroCarousel: [
       `${base}/hero1.png`,
       `${base}/hero2.png`,
@@ -38,6 +34,10 @@ export const CE = {
     eyebrow: "EXCELLENCE",
     title: "Licensure Examination for Civil Engineers (CELE)",
     subtitle: "Consistently delivering high performance in professional licensure examinations.",
+    performanceGraphs: [
+      "/departments/CE/graph1.png",
+      "/departments/CE/graph2.png",
+    ],
     results: [
       {
         period: "April 2025",
@@ -125,6 +125,29 @@ export const CE = {
     ],
   },
 
+  careers: {
+    eyebrow: "FUTURE PATHS",
+    title: "Career Opportunities",
+    subtitle: "The Civil Engineering program offers specialized areas that allow students to develop expertise in key fields of engineering practice and prepare for diverse career opportunities in industry, government, and research.",
+    cards: [
+      { 
+        icon: "📐", 
+        title: "Structural Engineering", 
+        text: "Focuses on the analysis and design of buildings, bridges, and infrastructure systems to ensure strength, stability, and safety." 
+      },
+      { 
+        icon: "🏗️", 
+        title: "Construction Engineering and Management", 
+        text: "Covers project planning, scheduling, cost estimation, and management of construction projects to ensure efficient execution." 
+      },
+      { 
+        icon: "🌉", 
+        title: "Transportation Engineering", 
+        text: "Deals with the planning, design, and operation of transportation systems such as roads, highways, and traffic networks." 
+      },
+    ],
+  },
+
   facilitiesAndActivities: {
     eyebrow: "RESOURCES",
     title: "Facilities & Activities",
@@ -151,6 +174,10 @@ export const CE = {
   faculty: {
     eyebrow: "LEADERSHIP",
     title: "Faculty",
+    organizationalCharts: [
+      "/departments/CE/chart1.png",
+      "/departments/CE/chart2.png",
+    ],
     members: [
       { name: "Engr. Joyce C. Evangelista", role: "Program Chair", image: `${base}/Evangelista.png` },
       { name: "Engr. Maureen Therese A. Balayan", role: "Faculty", image: `${base}/Balayan.png` },
@@ -166,29 +193,6 @@ export const CE = {
       { name: "Engr. Jennie C. Roque", role: "Faculty", image: `${base}/Roque.png` },
       { name: "Engr. Florence T. Samonte", role: "Faculty", image: `${base}/Samonte.png` },
       { name: "Engr. June-June P. Santos", role: "Faculty", image: `${base}/Santos.png` },
-    ],
-  },
-
-  careers: {
-    eyebrow: "FUTURE PATHS",
-    title: "Career Opportunities",
-    subtitle: "The Civil Engineering program offers specialized areas that allow students to develop expertise in key fields of engineering practice and prepare for diverse career opportunities in industry, government, and research.",
-    cards: [
-      { 
-        icon: "📐", 
-        title: "Structural Engineering", 
-        text: "Focuses on the analysis and design of buildings, bridges, and infrastructure systems to ensure strength, stability, and safety." 
-      },
-      { 
-        icon: "🏗️", 
-        title: "Construction Engineering and Management", 
-        text: "Covers project planning, scheduling, cost estimation, and management of construction projects to ensure efficient execution." 
-      },
-      { 
-        icon: "🌉", 
-        title: "Transportation Engineering", 
-        text: "Deals with the planning, design, and operation of transportation systems such as roads, highways, and traffic networks." 
-      },
     ],
   },
 };

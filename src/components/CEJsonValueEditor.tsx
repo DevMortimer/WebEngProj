@@ -178,46 +178,62 @@ export default function JsonValueEditor({
 
   const textValue = String(value ?? "");
   const multiline = textValue.includes("\n") || textValue.length > 100;
-  const isImagePath = textValue.match(/\.(png|jpg|jpeg|svg|webp|gif)$/) || label.toLowerCase().includes("image");
+  const isImagePath = textValue.match(/\.(png|jpg|jpeg|svg|webp|gif)$/) || label.toLowerCase().includes("image") || label.toLowerCase().includes("file") || label.toLowerCase().includes("icon");
 
   if (isImagePath) {
-    const images = [
-      "hero-big.png",
-      "hero-left.png",
-      "hero-small-1.png",
-      "hero-small-2.png",
-      "peo.png",
-      "watermark.png"
-    ];
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        // In a real app with a backend, we'd upload here.
+        // For this project, we assume the user will put the file in the public folder.
+        onChange(`/departments/CE/${file.name}`);
+      }
+    };
 
     return (
-      <div className={`block ${childIndent}`}>
+      <div className={`block ${childIndent} space-y-2`}>
         {showLabel && <FieldLabel text={label} />}
-        <div className="mt-2 flex flex-wrap gap-2">
-          {images.map(img => (
-            <button
-              key={img}
-              type="button"
-              onClick={() => onChange(`/departments/CE/${img}`)}
-              className={`group relative h-16 w-16 overflow-hidden rounded-lg border-2 transition-all ${
-                textValue.includes(img) ? "border-[#a90000] ring-2 ring-[#a90000]/20" : "border-gray-200 hover:border-gray-400"
-              }`}
-            >
-              <img src={`/departments/CE/${img}`} alt={img} className="h-full w-full object-cover" title={img} />
-              {textValue.includes(img) && (
-                <div className="absolute inset-0 flex items-center justify-center bg-[#a90000]/10">
-                   <div className="h-4 w-4 rounded-full bg-[#a90000] text-[10px] font-bold text-white flex items-center justify-center">✓</div>
-                </div>
-              )}
-            </button>
-          ))}
+        
+        <div className="flex flex-col md:flex-row gap-6 items-center bg-gray-50 p-4 rounded-2xl border border-gray-100 transition-all hover:bg-white hover:shadow-lg group">
+          {/* Live Preview */}
+          <div className="w-24 h-24 rounded-2xl bg-white border-2 border-dashed border-gray-200 flex items-center justify-center overflow-hidden shrink-0 relative shadow-inner">
+            {textValue ? (
+              <img 
+                src={textValue} 
+                alt="Preview" 
+                className="w-full h-full object-cover transition-transform group-hover:scale-110"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                  (e.target as HTMLImageElement).parentElement!.classList.add('bg-red-50');
+                }}
+              />
+            ) : (
+              <div className="text-[10px] font-black text-gray-300 uppercase tracking-widest text-center px-2">No Image</div>
+            )}
+          </div>
+
+          <div className="flex-1 w-full space-y-3">
+            <div className="flex items-center gap-3">
+              <label className="cursor-pointer bg-white border-2 ce-border-gold px-6 py-2.5 rounded-xl text-xs font-black ce-text-navy uppercase tracking-widest hover:ce-bg-navy hover:text-white hover:border-transparent transition-all shadow-sm active:scale-95">
+                <span>Upload Image</span>
+                <input
+                  type="file"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
+              </label>
+              <div className="h-px flex-1 bg-gray-100"></div>
+            </div>
+            
+            <div className="space-y-1">
+              <div className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Active Path</div>
+              <code className="block w-full rounded-lg bg-gray-100 px-3 py-1.5 text-[11px] font-mono text-gray-600 break-all border border-gray-200/50">
+                {textValue || "None selected"}
+              </code>
+            </div>
+          </div>
         </div>
-        <input
-          value={textValue}
-          onChange={(e) => onChange(e.target.value)}
-          className="mt-2 w-full rounded-lg border px-3 py-2 text-xs text-gray-500 bg-gray-50"
-          placeholder="Or type path manually..."
-        />
       </div>
     );
   }
