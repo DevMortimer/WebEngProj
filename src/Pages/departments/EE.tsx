@@ -19,8 +19,14 @@ export default function EEPage() {
   const [selectedYearId, setSelectedYearId] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const bullets = baseDept.curriculum.bullets || [];
-  const [activeIdx, setActiveIdx] = useState(1);
   const members = dept.faculty.members || [];
+  
+  const chairIdx = members.findIndex(m => 
+    m.role?.toLowerCase().includes("program chair") || 
+    m.role?.toLowerCase().includes("chairperson")
+  );
+  
+  const [activeIdx, setActiveIdx] = useState(chairIdx >= 0 ? chairIdx : 0);
   
   useEffect(() => {
     if (!dept) return;
@@ -489,7 +495,9 @@ export default function EEPage() {
 
           <div className="relative h-full flex items-center justify-center">
             {members.map((member, idx) => {
-              const position = idx - activeIdx;
+              let position = idx - activeIdx;
+              if (position > members.length / 2) position -= members.length;
+              if (position < -members.length / 2) position += members.length;
               const isActive = idx === activeIdx;
               const isVisible = Math.abs(position) <= 1;
 
