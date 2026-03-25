@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, DraftingCompass, Cpu } from "lucide-react";
 import { CircuitBackground } from "../../../public/departments/CPE/Components/CircuitBackground";
-// 1. Updated Import  
+// 1. Updated Import
+import CalendarSection from "../../../public/departments/CPE/Components/CalendarSection";
 import CpeScrollButton from "../../../public/departments/CPE/Components/CpeScrollButton";
 import CPEnavbar from "../../components/CPEnavbar";
 import SectionTitle from "../../components/SectionTitle";
@@ -653,6 +654,9 @@ export default function CPEPage() {
         </div>
       </section>
 
+      {/* --- CALENDAR SECTION (Dynamic Component) --- */}
+      <CalendarSection dept={dept} />
+      
       {/* --- FACULTY SECTION : SECURE ID BADGE APPROACH --- */}
       <section
         id="faculty"
@@ -992,9 +996,7 @@ export default function CPEPage() {
           </div>
         </div>
       </section>
-
       <CpeScrollButton />
-
       <Footer />
     </div>
   );

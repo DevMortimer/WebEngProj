@@ -163,6 +163,45 @@ export const CPE = {
     items: ["CISCO Networking Lab", "Microprocessor & Embedded Systems Lab", "Software Engineering Lab", "Electronics & Logic Circuits Lab"],
   },
 
+  calendar: {
+    title: "Upcoming Events & Defenses",
+    subtitle: "Stay updated with the latest department activities, seminar schedules, and critical capstone defense dates.",
+    events: [
+      {
+        id: "evt-1",
+        date: "2026-03-18", // Format: YYYY-MM-DD
+        title: "CpE Design Project 1: Final Defense",
+        type: "defense", // "defense" or "event"
+        time: "08:00 AM - 05:00 PM",
+        location: "COE2 Building, Rooms 203-204"
+      },
+      {
+        id: "evt-2",
+        date: "2026-03-24",
+        title: "Final Examinations Day 1",
+        type: "event",
+        time: "All Day",
+        location: "Hostel"
+      },
+      {
+        id: "evt-3",
+        date: "2026-04-10",
+        title: "Seminar",
+        type: "event",
+        time: "12:00 NN - 05:00 PM",
+        location: "BSU Hostel"
+      },
+      {
+        id: "evt-4",
+        date: "2026-05-15",
+        title: "Lorem Ipsum",
+        type: "defense",
+        time: "Lorem Ipsum",
+        location: "Lorem Ipsum"
+      }
+    ]
+  },
+
   faculty: {
     title: "Faculty",
     members: [
