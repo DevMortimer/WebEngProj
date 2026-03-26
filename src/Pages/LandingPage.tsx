@@ -7,6 +7,7 @@ import {
   mergeLandingWithOverrides,
 } from "../lib/landingAdmin";
 import { Mail } from "lucide-react";
+import Footer from "../components/Footer";
 
 import CE_Img from '../assets/Civil_Engineering.jpg';
 import CPE_Img from '../assets/Computer_Engineering.jpg';
@@ -1017,21 +1018,6 @@ function ContactSection({ data }: { data: Sections["contact"] }) {
   );
 }
 
-function LandingFooterSection({ data }: { data: Sections["footer"] }) {
-  return (
-    <footer id="footer" className="border-t bg-gray-100">
-      <div className="max-w-6xl mx-auto px-6 py-8 text-sm text-gray-500">
-        <p>{data.statusLabel}: {data.assignedGroup}</p>
-        <div className="mt-3 flex flex-wrap gap-4">
-          {data.links.map((link, idx) => (
-            <a key={idx} href={link.href} className="text-sm text-gray-700 underline">{link.label}</a>
-          ))}
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 export default function LandingPage() {
   const isPreviewMode = useMemo(() => {
     if (typeof window === "undefined") return false;
@@ -1123,7 +1109,7 @@ export default function LandingPage() {
         <StatisticsSection data={sections.statistics} />
         <ContactSection data={sections.contact} />
       </main>
-      <LandingFooterSection data={sections.footer} />
+      <Footer />
     </div>
   );
 }
