@@ -66,7 +66,7 @@ export default function IEPage() {
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
           <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
         </span>
-        COE DEPARTMENT
+        CPE DEPARTMENT
       </div>
       <h1 className="text-5xl md:text-6xl font-black tracking-tighter text-gray-900 leading-[1.1]">
         {dept.title.split(' ')[0]} <br/>
