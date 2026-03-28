@@ -41,82 +41,78 @@ const departments = [
 
 function DepartmentGrid() {
   const navigate = useNavigate();
-  
   return (
-    <section id="programs-grid" className="max-w-7xl mx-auto px-4 py-20 bg-[#fbf8f4]">
-      {/* Main Container with Industrial Shadow and Border */}
-      <div className="relative overflow-hidden bg-white border-2 border-black p-6 md:p-16 shadow-[16px_16px_0px_0px_rgba(169,0,0,1)]">
+    <section id="programs-grid" className="max-w-6xl mx-auto px-6 py-10">
+      <div className="relative overflow-hidden rounded-[2.5rem] bg-white border border-gray-100 p-8 md:p-12 shadow-[0_8px_30px_rgba(169,0,0,0.06)]">
         
-        {/* Fixed: Background Grid Pattern using correct TypeScript property name */}
-        <div 
-          className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
-          style={{ 
-            backgroundImage: `linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)`, 
-            backgroundSize: '40px 40px' 
-          }} 
-        />
+        <div className="absolute inset-0 z-0">
+          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-red-500 opacity-[0.03] blur-[80px] pointer-events-none"></div>
+          <div className="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-orange-400 opacity-[0.03] blur-[80px] pointer-events-none"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:30px_30px] opacity-40" />
+        </div>
 
         <div className="relative z-10">
-          {/* Section Header */}
-          <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-16 border-b-4 border-black pb-10">
-            <div className="space-y-4">
-              <div className="inline-block bg-orange-500 text-white text-[10px] font-black uppercase tracking-[0.5em] px-4 py-1">
-                College of Engineering
-              </div>
-              <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.8] uppercase">
-                Expertise <br />
-                <span className="text-[#a90000]">Directory</span>
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10 border-b border-gray-100 pb-8">
+            <div className="space-y-1">
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">college of engineering</p>
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none italic">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a90000] to-orange-500 uppercase">Engineering</span>
+                <br />
+                <span className="not-italic text-gray-900 uppercase">Departments</span>
               </h2>
             </div>
-            <div className="max-w-sm">
-              <p className="text-gray-600 text-sm font-bold leading-tight uppercase italic border-l-4 border-[#a90000] pl-6">
-                Technical mastery and specialized discipline across the BulSU engineering ecosystem. Select a department to explore curriculum and faculty.
+            <div className="max-w-xs">
+              <p className="text-gray-400 text-[13px] font-medium leading-relaxed border-l-2 border-[#a90000] pl-4">
+                Fostering specialized expertise and technical mastery across our diverse engineering disciplines at Bulacan State University.
               </p>
             </div>
           </div>
 
-          {/* Department Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 bg-black border border-black">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {departments.map((dept) => (
               <div 
                 key={dept.id} 
-                className="group cursor-pointer relative bg-white overflow-hidden aspect-[3/4] transition-all duration-300" 
+                className="group cursor-pointer relative" 
                 onClick={() => navigate(`/dept/${dept.id}`)}
               >
-                {/* Department Image */}
-                <div className="absolute inset-0 z-0">
-                  <img 
-                    src={dept.image} 
-                    alt={dept.name} 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 ease-in-out" 
-                  />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-500" />
-                </div>
+                <div className="relative transition-all duration-500 border border-gray-200 group-hover:border-transparent">
+                  
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-[#a90000] via-orange-400 to-white p-[2px]" />
 
-                {/* UI Overlay */}
-                <div className="absolute inset-0 z-10 flex flex-col justify-between p-6">
-                  <div className="flex justify-between items-start">
-                    <span className="bg-black text-white text-[10px] font-black px-3 py-1 tracking-tighter">
-                      SPEC_{dept.id}
-                    </span>
-                    <div className="bg-[#a90000] text-white p-2 opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                      <ArrowUpRight className="h-5 w-5" />
+                  <div className="relative aspect-square bg-white z-10 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-1">
+                    <img 
+                      src={dept.image} 
+                      alt={dept.name} 
+                      className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105" 
+                    />
+                    
+                    <div className="absolute top-0 right-0 px-3 py-1 bg-black/60 backdrop-blur-sm text-white opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
+                      <span className="text-[9px] font-bold uppercase tracking-widest">{dept.id}</span>
+                    </div>
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
+                    
+                    <div className="absolute top-4 left-4 h-8 w-8 bg-[#a90000] text-white flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500 z-20">
+                      <ArrowUpRight className="h-4 w-4" />
+                    </div>
+
+                    <div className="absolute bottom-0 left-0 w-full p-4 text-white z-10">
+                      <h3 className="text-lg font-black leading-tight uppercase tracking-tight group-hover:text-orange-400 transition-colors">
+                        {dept.name}
+                      </h3>
                     </div>
                   </div>
-
-                  <div className="space-y-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    <h3 className="text-2xl font-black text-white leading-none uppercase drop-shadow-lg">
-                      {dept.name}
-                    </h3>
-                    <div className="h-1 w-0 group-hover:w-full bg-orange-500 transition-all duration-500" />
-                    <p className="text-[10px] text-white font-bold leading-tight uppercase tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-2">
-                      {dept.description}
-                    </p>
+                </div>
+                
+                <div className="mt-4 px-1 space-y-2">
+                   <p className="text-[11px] text-gray-500 leading-snug line-clamp-2 font-medium group-hover:text-gray-800 transition-colors">
+                    {dept.description}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <div className="h-[2px] w-4 bg-gray-200 group-hover:w-10 group-hover:bg-[#a90000] transition-all duration-500" />
+                    <span className="text-[10px] font-black text-[#a90000] opacity-0 group-hover:opacity-100 uppercase tracking-widest transition-all">Explore</span>
                   </div>
                 </div>
-
-                {/* Decorative Sharp Corner */}
-                <div className="absolute bottom-0 right-0 w-12 h-12 bg-white translate-x-6 translate-y-6 rotate-45 z-20 transition-transform group-hover:scale-150" />
               </div>
             ))}
           </div>
