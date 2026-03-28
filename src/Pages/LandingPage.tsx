@@ -41,87 +41,82 @@ const departments = [
 
 function DepartmentGrid() {
   const navigate = useNavigate();
-
   return (
-    <section id="programs-grid" className="max-w-6xl mx-auto px-6 py-16">
-      <div className="relative overflow-hidden rounded-[3rem] bg-white border border-gray-100 p-8 md:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
+    <section id="programs-grid" className="max-w-6xl mx-auto px-6 py-10">
+      <div className="relative overflow-hidden rounded-[2.5rem] bg-white border border-gray-100 p-8 md:p-12 shadow-[0_8px_30px_rgba(169,0,0,0.06)]">
         
-        {/* Animated Background Elements */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-red-600 opacity-[0.04] blur-[100px] pointer-events-none animate-pulse"></div>
-          <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-orange-500 opacity-[0.04] blur-[100px] pointer-events-none animate-pulse" style={{ animationDelay: '2s' }}></div>
-          {/* Corrected backgroundSize for TS2353 compliance */}
-          <div 
-            className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] opacity-50" 
-            style={{ backgroundSize: '40px 40px' }} 
-          />
+          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-red-500 opacity-[0.03] blur-[80px] pointer-events-none"></div>
+          <div className="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-orange-400 opacity-[0.03] blur-[80px] pointer-events-none"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:30px_30px] opacity-40" />
         </div>
 
         <div className="relative z-10">
-          {/* Header Section */}
-          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 mb-16 border-b-2 border-gray-50 pb-10">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="h-px w-8 bg-orange-500"></span>
-                <p className="text-[10px] font-black uppercase tracking-[0.5em] text-orange-500">BulSU Excellence</p>
-              </div>
-              <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9]">
-                <span className="text-gray-900 uppercase">Engineering</span>
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10 border-b border-gray-100 pb-8">
+            <div className="space-y-1">
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">college of engineering</p>
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none italic">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a90000] to-orange-500 uppercase">Engineering</span>
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a90000] to-orange-500 uppercase">Departments</span>
+                <span className="not-italic text-gray-900 uppercase">Departments</span>
               </h2>
             </div>
-            <div className="max-w-xs md:text-right">
-              <p className="text-gray-400 text-sm font-semibold leading-relaxed uppercase italic">
-                Driving technical innovation through <span className="text-[#a90000] not-italic">specialized mastery</span> across eight core disciplines.
+            <div className="max-w-xs">
+              <p className="text-gray-400 text-[13px] font-medium leading-relaxed border-l-2 border-[#a90000] pl-4">
+                Fostering specialized expertise and technical mastery across our diverse engineering disciplines at Bulacan State University.
               </p>
             </div>
           </div>
 
-          {/* Optimized Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+          {/* Grid gaps tightened to 6 for a more 'together' look */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {departments.map((dept) => (
               <div 
                 key={dept.id} 
-                className="group cursor-pointer flex flex-col" 
-                onClick={() => navigate(/dept/${dept.id})}
+                className="group cursor-pointer relative" 
+                onClick={() => navigate(`/dept/${dept.id}`)}
               >
-                {/* Image Container with Floating Effect */}
-                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl transition-all duration-500 shadow-lg group-hover:shadow-[0_20px_40px_rgba(169,0,0,0.15)] group-hover:-translate-y-2">
-                  <img 
-                    src={dept.image} 
-                    alt={dept.name} 
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" 
-                  />
+                {/* --- SHARP RECTANGULAR BORDER --- */}
+                <div className="relative transition-all duration-500 border border-gray-200 group-hover:border-transparent">
                   
-                  {/* Glassmorphism Badge */}
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full z-20">
-                    <span className="text-[10px] font-black text-white uppercase tracking-widest">{dept.id}</span>
-                  </div>
+                  {/* Living Border Gradient (Sharp Edges) */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-[#a90000] via-orange-400 to-white p-[2px]" />
 
-                  {/* Red Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#a90000]/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                  
-                  {/* Icon Button */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-12 w-12 bg-white rounded-full flex items-center justify-center scale-0 group-hover:scale-100 transition-all duration-500 z-20 shadow-xl">
-                    <ArrowUpRight className="h-6 w-6 text-[#a90000]" />
-                  </div>
+                  {/* Inner Content (Rectangle) */}
+                  <div className="relative aspect-square bg-white z-10 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-1">
+                    <img 
+                      src={dept.image} 
+                      alt={dept.name} 
+                      className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105" 
+                    />
+                    
+                    {/* Minimalist Top Badge */}
+                    <div className="absolute top-0 right-0 px-3 py-1 bg-black/60 backdrop-blur-sm text-white opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
+                      <span className="text-[9px] font-bold uppercase tracking-widest">{dept.id}</span>
+                    </div>
 
-                  <div className="absolute bottom-6 left-6 right-6 text-white z-10">
-                    <h3 className="text-xl font-black uppercase leading-none tracking-tighter">
-                      {dept.name}
-                    </h3>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
+                    
+                    <div className="absolute top-4 left-4 h-8 w-8 bg-[#a90000] text-white flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500 z-20">
+                      <ArrowUpRight className="h-4 w-4" />
+                    </div>
+
+                    <div className="absolute bottom-0 left-0 w-full p-4 text-white z-10">
+                      <h3 className="text-lg font-black leading-tight uppercase tracking-tight group-hover:text-orange-400 transition-colors">
+                        {dept.name}
+                      </h3>
+                    </div>
                   </div>
                 </div>
                 
-                {/* Details Section */}
-                <div className="mt-5 px-1">
-                  <p className="text-[12px] text-gray-500 leading-relaxed line-clamp-2 font-medium group-hover:text-gray-900 transition-colors">
+                {/* Descriptive Text Content */}
+                <div className="mt-4 px-1 space-y-2">
+                   <p className="text-[11px] text-gray-500 leading-snug line-clamp-2 font-medium group-hover:text-gray-800 transition-colors">
                     {dept.description}
                   </p>
-                  <div className="mt-3 flex items-center gap-3">
-                    <span className="text-[10px] font-black text-[#a90000] uppercase tracking-widest">View Program</span>
-                    <div className="h-[1px] flex-1 bg-gray-100 group-hover:bg-orange-400 transition-all duration-500" />
+                  <div className="flex items-center gap-2">
+                    <div className="h-[2px] w-4 bg-gray-200 group-hover:w-10 group-hover:bg-[#a90000] transition-all duration-500" />
+                    <span className="text-[10px] font-black text-[#a90000] opacity-0 group-hover:opacity-100 uppercase tracking-widest transition-all">Explore</span>
                   </div>
                 </div>
               </div>
