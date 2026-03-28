@@ -41,46 +41,84 @@ const departments = [
 
 function DepartmentGrid() {
   const navigate = useNavigate();
-
-  // ERROR 1: Reference Error - Accessing a variable that doesn't exist
-  // This will cause the build to fail because 'undefinedVariable' is not defined.
-  console.log(undefinedVariable); 
-
   return (
     <section id="programs-grid" className="max-w-6xl mx-auto px-6 py-10">
       <div className="relative overflow-hidden rounded-[2.5rem] bg-white border border-gray-100 p-8 md:p-12 shadow-[0_8px_30px_rgba(169,0,0,0.06)]">
         
-        {/* ERROR 2: TypeScript Property Error (TS2353) */}
-        {/* Using 'bgSize' instead of 'backgroundSize' will trigger the error you saw earlier. */}
-        <div 
-          className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
-          style={{ 
-            backgroundImage: `linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)`, 
-            bgSize: '30px 30px' 
-          }} 
-        />
+        <div className="absolute inset-0 z-0">
+          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-red-500 opacity-[0.03] blur-[80px] pointer-events-none"></div>
+          <div className="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-orange-400 opacity-[0.03] blur-[80px] pointer-events-none"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:30px_30px] opacity-40" />
+        </div>
 
         <div className="relative z-10">
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10 border-b border-gray-100 pb-8">
             <div className="space-y-1">
               <p className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">college of engineering</p>
-              
-              {/* ERROR 3: Syntax/JSX Error */}
-              {/* I have left an unclosed tag or curly brace mismatch below */}
               <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none italic">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a90000] to-orange-500 uppercase">Engineering</span>
                 <br />
                 <span className="not-italic text-gray-900 uppercase">Departments</span>
               </h2>
             </div>
+            <div className="max-w-xs">
+              <p className="text-gray-400 text-[13px] font-medium leading-relaxed border-l-2 border-[#a90000] pl-4">
+                Fostering specialized expertise and technical mastery across our diverse engineering disciplines at Bulacan State University.
+              </p>
+            </div>
           </div>
 
+          {/* Grid gaps tightened to 6 for a more 'together' look */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* ERROR 4: Runtime/Logic Error */}
-            {/* Attempting to map over a non-existent property 'items' on departments */}
-            {departments.items.map((dept: any) => (
-              <div key={dept.id} className="group cursor-pointer">
-                <p>{dept.name}</p>
+            {departments.map((dept) => (
+              <div 
+                key={dept.id} 
+                className="group cursor-pointer relative" 
+                onClick={() => navigate(`/dept/${dept.id}`)}
+              >
+                {/* --- SHARP RECTANGULAR BORDER --- */}
+                <div className="relative transition-all duration-500 border border-gray-200 group-hover:border-transparent">
+                  
+                  {/* Living Border Gradient (Sharp Edges) */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-[#a90000] via-orange-400 to-white p-[2px]" />
+
+                  {/* Inner Content (Rectangle) */}
+                  <div className="relative aspect-square bg-white z-10 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-1">
+                    <img 
+                      src={dept.image} 
+                      alt={dept.name} 
+                      className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105" 
+                    />
+                    
+                    {/* Minimalist Top Badge */}
+                    <div className="absolute top-0 right-0 px-3 py-1 bg-black/60 backdrop-blur-sm text-white opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
+                      <span className="text-[9px] font-bold uppercase tracking-widest">{dept.id}</span>
+                    </div>
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
+                    
+                    <div className="absolute top-4 left-4 h-8 w-8 bg-[#a90000] text-white flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500 z-20">
+                      <ArrowUpRight className="h-4 w-4" />
+                    </div>
+
+                    <div className="absolute bottom-0 left-0 w-full p-4 text-white z-10">
+                      <h3 className="text-lg font-black leading-tight uppercase tracking-tight group-hover:text-orange-400 transition-colors">
+                        {dept.name}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Descriptive Text Content */}
+                <div className="mt-4 px-1 space-y-2">
+                   <p className="text-[11px] text-gray-500 leading-snug line-clamp-2 font-medium group-hover:text-gray-800 transition-colors">
+                    {dept.description}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <div className="h-[2px] w-4 bg-gray-200 group-hover:w-10 group-hover:bg-[#a90000] transition-all duration-500" />
+                    <span className="text-[10px] font-black text-[#a90000] opacity-0 group-hover:opacity-100 uppercase tracking-widest transition-all">Explore</span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
