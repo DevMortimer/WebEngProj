@@ -35,7 +35,7 @@ jobs:
 
       # Step 3: Install all project dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       # Step 4: Run the build command. For Vite, `npm run build` typically runs `tsc && vite build`.
       # This checks for TypeScript errors and then builds the project.
