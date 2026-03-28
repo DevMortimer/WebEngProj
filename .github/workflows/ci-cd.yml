@@ -68,3 +68,26 @@ jobs:
             } else {
               await github.rest.repos.createCommitComment({ owner, repo, commit_sha: sha, body });
             }
+
+  report-success:
+    name: Report Success
+    runs-on: ubuntu-latest
+    # This job runs only if the build-and-test job succeeds.
+    if: success()
+    # This job needs the build-and-test job to have run first.
+    needs: [build-and-test]
+    steps:
+      - name: Add success comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const sha = context.sha;
+            
+            const body = `working`;
+            if (context.issue.number) {
+              await github.rest.issues.createComment({ owner, repo, issue_number: context.issue.number, body });
+            } else {
+              await github.rest.repos.createCommitComment({ owner, repo, commit_sha: sha, body });
+            }
