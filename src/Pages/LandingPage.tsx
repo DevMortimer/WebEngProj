@@ -41,17 +41,23 @@ const departments = [
 
 function DepartmentGrid() {
   const navigate = useNavigate();
+  
   return (
     <section id="programs-grid" className="max-w-7xl mx-auto px-4 py-20 bg-[#fbf8f4]">
-      {/* Container with a Blueprint/Grid background effect */}
+      {/* Main Container with Industrial Shadow and Border */}
       <div className="relative overflow-hidden bg-white border-2 border-black p-6 md:p-16 shadow-[16px_16px_0px_0px_rgba(169,0,0,1)]">
         
-        {/* Background Grid Pattern */}
-        <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
-             style={{ backgroundImage: `linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)`, bgSize: '40px 40px' }} />
+        {/* Fixed: Background Grid Pattern using correct TypeScript property name */}
+        <div 
+          className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
+          style={{ 
+            backgroundImage: `linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)`, 
+            backgroundSize: '40px 40px' 
+          }} 
+        />
 
         <div className="relative z-10">
-          {/* Section Header with Industrial Styling */}
+          {/* Section Header */}
           <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-16 border-b-4 border-black pb-10">
             <div className="space-y-4">
               <div className="inline-block bg-orange-500 text-white text-[10px] font-black uppercase tracking-[0.5em] px-4 py-1">
@@ -69,15 +75,15 @@ function DepartmentGrid() {
             </div>
           </div>
 
-          {/* Department Cards - Sharp Edges & High Contrast */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 bg-black border-1 border-black">
+          {/* Department Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 bg-black border border-black">
             {departments.map((dept) => (
               <div 
                 key={dept.id} 
                 className="group cursor-pointer relative bg-white overflow-hidden aspect-[3/4] transition-all duration-300" 
                 onClick={() => navigate(`/dept/${dept.id}`)}
               >
-                {/* Image with Grayscale to Color Transition */}
+                {/* Department Image */}
                 <div className="absolute inset-0 z-0">
                   <img 
                     src={dept.image} 
@@ -87,7 +93,7 @@ function DepartmentGrid() {
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-500" />
                 </div>
 
-                {/* Industrial Overlay UI */}
+                {/* UI Overlay */}
                 <div className="absolute inset-0 z-10 flex flex-col justify-between p-6">
                   <div className="flex justify-between items-start">
                     <span className="bg-black text-white text-[10px] font-black px-3 py-1 tracking-tighter">
@@ -103,13 +109,13 @@ function DepartmentGrid() {
                       {dept.name}
                     </h3>
                     <div className="h-1 w-0 group-hover:w-full bg-orange-500 transition-all duration-500" />
-                    <p className="text-[10px] text-white font-bold leading-tight uppercase tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                    <p className="text-[10px] text-white font-bold leading-tight uppercase tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-2">
                       {dept.description}
                     </p>
                   </div>
                 </div>
 
-                {/* Decorative Bottom Corner Bar */}
+                {/* Decorative Sharp Corner */}
                 <div className="absolute bottom-0 right-0 w-12 h-12 bg-white translate-x-6 translate-y-6 rotate-45 z-20 transition-transform group-hover:scale-150" />
               </div>
             ))}
