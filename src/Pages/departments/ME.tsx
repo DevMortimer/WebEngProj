@@ -47,7 +47,7 @@ export default function MEPage() {
         items={[
           { label: "Home", kind: "scroll", target: "home" },
           { label: "Overview", kind: "scroll", target: "about" },
-          { label: "PEO", kind: "scroll", target: "peo" },
+          { label: "POKE", kind: "scroll", target: "peo" },
           { label: "Outcomes", kind: "scroll", target: "so" },
           { label: "Curriculum", kind: "scroll", target: "curriculum" },
           { label: "Excellence", kind: "route", to: dept.excellencePage.path },
