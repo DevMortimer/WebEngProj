@@ -9,6 +9,15 @@ import {
 import { Mail } from "lucide-react";
 import Footer from "../components/Footer";
 
+import CE_Img from '../assets/Civil_Engineering.jpg';
+import CPE_Img from '../assets/Computer_Engineering.jpg';
+import ECE_Img from '../assets/Electronics_Engineering.jpg';
+import EE_Img from '../assets/Electrical_Engineering.jpg';
+import IE_Img from '../assets/Industrial_Engineering.jpg';
+import ME_Img from '../assets/Mechanical_Engineering.jpg';
+import MEE_Img from '../assets/Mechatronics_Engineering.jpg';
+import MFE_Img from '../assets/Manufacturing_Engineering.jpg';
+
 type Sections = LandingPageData["sections"];
 type HeroStat = LandingPageData["hero"]["stats"][number];
 
