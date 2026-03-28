@@ -67,7 +67,7 @@ jobs:
             const marker = "<!-- ultrarapidfire-devops-blocker -->";
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
 
-            const fallback = ["No parsed lines found.", "Open full logs for full context."].join("\n");
+            const fallback = ["Couldn't extract specific error lines.", "Please check the full logs for more details."].join("\n");
             const lines = fs.existsSync("build.log")
               ? fs.readFileSync("build.log", "utf8").split(/\r?\n/)
               : [];
@@ -82,26 +82,26 @@ jobs:
 
             const body = [
               marker,
-              "❌ **ultraRAPIDfire Gatekeeper: Build Blocked**",
+              "🚨 **ultraRAPIDfire CI/CD: Build Failed**",
               "",
-              "### 🔎 What exactly went wrong?",
+              "### 🕵️ Here's what we found...",
               "",
-              "**Pseudo Lint/Code Style Signals:**",
+              "**Linting & Code Style Issues:**",
               "```txt",
               toBlock(lintLike),
               "```",
               "",
-              "**TypeScript/Build Signals:**",
+              "**TypeScript & Compilation Errors:**",
               "```txt",
               toBlock(tsLike.length ? tsLike : buildLike),
               "```",
               "",
-              "### 🛠️ Next Steps",
-              "1. Fix the lines mentioned above locally.",
-              "2. Run `npm run build` before pushing.",
-              "3. Push again to re-run checks.",
+              "###  How to fix this",
+              "1. Address the highlighted errors in your local environment.",
+              "2. Verify your fixes by running `npm run build` locally.",
+              "3. Commit and push your changes to trigger the checks again.",
               "",
-              `🔗 [Full Debug Logs](${runUrl})`
+              `🔗 View Complete CI Logs`
             ].join("\n");
 
             const issue_number = context.payload.pull_request.number;
