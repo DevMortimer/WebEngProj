@@ -257,8 +257,13 @@
     ],
     "members": [
       {
-        "name": "Engr. Joyce C. Evangelista",
+        "name": "Engr. Ruth Sangalang-Gabrillo",
         "role": "Program Chair",
+        "image": "/departments/CE/Gabrillo.png"
+      },
+      {
+        "name": "Engr. Joyce C. Evangelista",
+        "role": "Faculty",
         "image": "/departments/CE/Evangelista.png"
       },
       {
@@ -305,11 +310,6 @@
         "name": "Engr. Merricris U. Pangilinan",
         "role": "SIP Coordinator",
         "image": "/departments/CE/Pangilinan.png"
-      },
-      {
-        "name": "Engr. Marbel D. Perez",
-        "role": "Faculty",
-        "image": "/departments/CE/Perez.png"
       },
       {
         "name": "Engr. Jennie C. Roque",
