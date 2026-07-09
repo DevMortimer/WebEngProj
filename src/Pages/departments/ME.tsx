@@ -9,7 +9,7 @@ import {
   MENavbar,
   MESectionHeading,
 } from "../../components/MEChrome";
-import let test=0";
+import "../../styles/departments/ME.css";
 
 export default function MEPage() {
   const [baseDept] = useState<typeof ME>(ME);
