@@ -179,7 +179,8 @@ export const CE = {
       "/departments/CE/chart2.png",
     ],
     members: [
-      { name: "Engr. Joyce C. Evangelista", role: "Program Chair", image: `${base}/Evangelista.png` },
+      { name: "Engr. Ruth Sangalang-Gabrillo", role: "Program Chair", image: `${base}/Gabrillo.png` },
+      { name: "Engr. Joyce C. Evangelista", role: "Faculty", image: `${base}/Evangelista.png` },
       { name: "Engr. Maureen Therese A. Balayan", role: "Faculty", image: `${base}/Balayan.png` },
       { name: "Engr. Romualdo S. Caluag", role: "Faculty", image: `${base}/Caluag.png` },
       { name: "Engr. Camille Aira Espiritu", role: "Faculty", image: `${base}/Espiritu.png` },
@@ -189,7 +190,6 @@ export const CE = {
       { name: "Engr. Radger Teddy L. Manuel", role: "Faculty", image: `${base}/Manuel.png` },
       { name: "Engr. Resette Nicole L. Meneses", role: "Faculty", image: `${base}/Meneses.png` },
       { name: "Engr. Merricris U. Pangilinan", role: "SIP Coordinator", image: `${base}/Pangilinan.png` },
-      { name: "Engr. Marbel D. Perez", role: "Faculty", image: `${base}/Perez.png` },
       { name: "Engr. Jennie C. Roque", role: "Faculty", image: `${base}/Roque.png` },
       { name: "Engr. Florence T. Samonte", role: "Faculty", image: `${base}/Samonte.png` },
       { name: "Engr. June-June P. Santos", role: "Faculty", image: `${base}/Santos.png` },
