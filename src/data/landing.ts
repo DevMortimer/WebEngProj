@@ -1,4 +1,7 @@
-export const landingPageData = {
+import landingJson from "../../public/data/landing.json";
+import { mergeWithShape } from "../lib/jsonShape";
+
+const landingPageDefaults = {
   navbar: {
     logoSrc: "/COE.svg",
     logoAlt: "Bulacan State University College of Engineering",
@@ -473,4 +476,8 @@ export const landingPageData = {
   },
 };
 
-export type LandingPageData = typeof landingPageData;
+// public/data/landing.json is the editable source of truth,
+// layered over the typed defaults above (missing fields fall back safely).
+export const landingPageData = mergeWithShape(landingPageDefaults, landingJson);
+
+export type LandingPageData = typeof landingPageDefaults;

@@ -4,7 +4,7 @@ Multi-group collaboration website with:
 
 - Landing page sections assigned per group
 - Per-department pages loaded from JSON files in `public/data/`
-- Per-department admin editor (`/dept/:deptCode/admin`) with live preview + JSON export
+- Landing page content loaded from `public/data/landing.json`
 
 ## Development
 
@@ -22,18 +22,15 @@ npm run build
 ## Routes
 
 - `/` Landing page
-- `/admin` Landing admin editor
 - `/departments` Department selector
 - `/dept/:deptCode` Department page
-- `/dept/:deptCode/admin` Department admin editor
 
 ## Content Files
 
-- Landing: `src/data/landing.ts`
+- Landing: `public/data/landing.json`
 - Departments: `public/data/departments/*.json`
 
 ## Collaboration Setup
 
 See [docs/PROJECT_WORKFLOW.md](docs/PROJECT_WORKFLOW.md).
 For per-department TSX customization, see [docs/DEPARTMENT_PAGE_CUSTOMIZATION.md](docs/DEPARTMENT_PAGE_CUSTOMIZATION.md).
-

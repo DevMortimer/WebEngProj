@@ -1,6 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
-import { Link } from "react-router-dom";
-import { mergeDeptWithOverrides } from "../lib/departmentAdmin";
+import { useEffect, useState } from "react";
 import { MFE } from "../data/department/MFE";
 
 interface NavProps {
@@ -13,7 +11,7 @@ export default function MFEnavbar({ onNav, activeId }: NavProps) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  const dept = useMemo(() => mergeDeptWithOverrides(MFE), []);
+  const dept = MFE;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -119,16 +117,6 @@ export default function MFEnavbar({ onNav, activeId }: NavProps) {
           </div>
 
           <div className="flex items-center gap-3 relative z-[70]">
-            <Link 
-              to="/dept/mfe/admin"
-              className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-zinc-950 text-white text-[9px] font-black uppercase tracking-widest rounded-sm hover:bg-[#26bac8] transition-all group overflow-hidden relative shadow-lg active:scale-95"
-            >
-              <span className="relative z-10">Admin Access</span>
-              <svg viewBox="0 0 24 24" className="w-3 h-3 relative z-10 fill-none stroke-current stroke-[3] group-hover:translate-x-1 transition-transform">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-            
             {/* Mobile Menu Toggle Button */}
             <button 
               className="lg:hidden p-2 text-zinc-950 hover:bg-zinc-100 rounded-full transition-colors bg-white/50 backdrop-blur-sm"
@@ -181,18 +169,6 @@ export default function MFEnavbar({ onNav, activeId }: NavProps) {
           ))}
         </div>
         
-        <div className="mt-auto pt-4 border-t border-zinc-100">
-          <Link 
-            to="/dept/mfe/admin"
-            onClick={() => setIsMobileOpen(false)}
-            className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-zinc-950 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[#26bac8] transition-all shadow-lg active:scale-95 group"
-          >
-            <span>Admin Access</span>
-            <svg viewBox="0 0 24 24" className="w-3 h-3 fill-none stroke-current stroke-[3] group-hover:translate-x-1 transition-transform">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </div>
       </div>
     </>
   );

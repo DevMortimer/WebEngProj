@@ -1,24 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import Navbar from "../../components/navbar";
 import SectionTitle from "../../components/SectionTitle";
 import Footer from "../../components/Footer";
-import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { EE } from "../../data/department/EE";
 import "../../styles/departments/EE.css";
 
 
 export default function EEPage() {
-  const [baseDept] = useState<typeof EE>(EE);
-
-  const dept = useMemo(
-    () => mergeDeptWithOverrides(baseDept),
-    [baseDept]
-  );
+  const dept = EE;
 
   const [selectedYearId, setSelectedYearId] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const bullets = baseDept.curriculum.bullets || [];
+  const bullets = dept.curriculum.bullets || [];
   const members = dept.faculty.members || [];
   
   const chairIdx = members.findIndex(m => 
@@ -48,8 +41,8 @@ export default function EEPage() {
   };
 
   const currentYearData = useMemo(() => {
-    return baseDept.curriculum.years.find((y) => y.id === selectedYearId) || null;
-  }, [selectedYearId, baseDept]);
+    return dept.curriculum.years.find((y) => y.id === selectedYearId) || null;
+  }, [selectedYearId, dept]);
 
   return (
     <div className="bg-white">
@@ -78,14 +71,6 @@ export default function EEPage() {
                 </p>
               </div>
 
-              <div className="pt-4">
-                <Link
-                  to={`/dept/${dept.code}/admin`}
-                  className="inline-flex items-center gap-3 bg-black text-white px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest hover:scale-105 hover:bg-red-700 hover:shadow-2xl transition-all shadow-lg active:scale-95"
-                >
-                  Open Department Admin →
-                </Link>
-              </div>
             </div>
           </div>
 
@@ -333,7 +318,7 @@ export default function EEPage() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 mb-12">
-          {baseDept.curriculum.years.map((year) => (
+          {dept.curriculum.years.map((year) => (
             <button
               key={year.id}
               onClick={() => setSelectedYearId(selectedYearId === year.id ? null : year.id)}

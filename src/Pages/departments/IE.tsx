@@ -1,20 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import Navbar from "../../components/navbar";
 import SectionTitle from "../../components/SectionTitle";
 import Footer from "../../components/Footer";
-import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { IE } from "../../data/department/IE";
 import "../../styles/departments/IE.css";
 
 export default function IEPage() {
   const [selectedYear, setSelectedYear] = useState<any | null>(null);
-  const [baseDept] = useState<typeof IE>(IE);
-
-  const dept = useMemo(
-    () => mergeDeptWithOverrides(baseDept),
-    [baseDept]
-  );
+  const dept = IE;
 
   useEffect(() => {
     if (!dept) return;
@@ -84,15 +77,6 @@ export default function IEPage() {
         >
           Explore Program
         </button>
-
-        {/* Back and Styled: Admin Link */}
-        <Link
-          to={`/dept/${dept.code}/admin`}
-          className="group flex items-center gap-2 px-6 py-4 rounded-2xl border border-gray-200 text-sm font-bold text-gray-600 hover:bg-gray-50 hover:border-gray-300 transition-all"
-        >
-          <span className="opacity-60 group-hover:opacity-100 transition-opacity">🔐</span>
-          Open Department Admin
-        </Link>
       </div>
     </div>
 

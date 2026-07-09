@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { ME } from "../../data/department/ME";
 import { useMEReveal } from "../../components/MEReveal";
 import {
@@ -12,10 +11,9 @@ import {
 import "../../styles/departments/ME.css";
 
 export default function MEPage() {
-  const [baseDept] = useState<typeof ME>(ME);
+  const dept = ME;
   const mainRef = useRef<HTMLElement | null>(null);
 
-  const dept = useMemo(() => mergeDeptWithOverrides(baseDept), [baseDept]);
   const revealStyle = (delay = 0) => ({ "--me-delay": `${delay}ms` } as CSSProperties);
 
   useMEReveal(mainRef, dept.code);

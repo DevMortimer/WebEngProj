@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState, useRef, type ReactNode } from "react";
 import Navbar from "../../components/CEnavbar";
 import SectionTitle from "../../components/CEsectiontitle";
 import Footer from "../../components/CEfooter";
-import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { CE } from "../../data/department/CE";
 import CEIcon from "../../assets/CEicon.svg";
 import "../../styles/departments/CE.css";
@@ -383,17 +382,12 @@ function ImagePreviewModal({ isOpen, onClose, images, title, eyebrow }: { isOpen
 }
 
 export default function CEPage() {
-  const [baseDept] = useState<typeof CE>(CE);
+  const dept = CE;
   const [activeId, setActiveId] = useState<string>("home");
   const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
   const [isGraphModalOpen, setIsGraphModalOpen] = useState(false);
   const [isChartModalOpen, setIsChartModalOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-
-  const dept = useMemo(
-    () => mergeDeptWithOverrides(baseDept),
-    [baseDept]
-  );
 
   const baseDir = "/departments/CE"; // Ensure baseDir is correct for downloads
 

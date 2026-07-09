@@ -1,20 +1,16 @@
 import { useEffect, useMemo, useState, useCallback, useRef } from "react";
-import { Link } from "react-router-dom";
 import Navbar from "../../components/eceNavBar";
 import SectionTitle from "../../components/eceSectionTitle";
 import Footer from "../../components/Footer";
-import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { ECE } from "../../data/department/ECE";
 import "../../styles/departments/ECE.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function ECEPage() {
-  const [baseDept] = useState<typeof ECE>(ECE);
+  const dept = ECE;
   const [activeIdx, setActiveIdx] = useState(0);
 
   const [selectedYearId, setSelectedYearId] = useState<string | null>(null);
-
-  const dept = useMemo(() => mergeDeptWithOverrides(baseDept), [baseDept]);
 
   const currentYearData = useMemo(() => {
     return dept.curriculum.years.find((y) => y.id === selectedYearId);
@@ -121,14 +117,6 @@ export default function ECEPage() {
             {dept.title}
           </h1>
           <p className="mt-2 text-sm text-gray-500">{dept.subtitle}</p>
-          <div className="mt-5">
-            <Link
-              to={`/dept/${dept.code}/admin`}
-              className="inline-flex items-center rounded-full border border-[#2B1C50] px-5 py-2 text-sm font-semibold text-[#2B1C50] hover:bg-[#2B1C50] hover:text-white"
-            >
-              Open Department Admin
-            </Link>
-          </div>
         </div>
 
         <div className="mt-8 grid grid-cols-12 gap-3 md:gap-5">
@@ -368,7 +356,7 @@ export default function ECEPage() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-8 w-full">
-          {baseDept.curriculum.years.map((year) => (
+          {dept.curriculum.years.map((year) => (
             <button
               key={year.id}
               onClick={() =>

@@ -1,18 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import Navbar from "../../components/navbar";
 import SectionTitle from "../../components/SectionTitle";
 import Footer from "../../components/Footer";
-import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { MEE } from "../../data/department/MEE";
 import "../../styles/departments/MEE.css";
 import { Lightbulb, Users, FlaskConical, ShieldCheck, Wrench, MessageSquare, Globe, BookOpen, Scale, Cpu, Briefcase, Cog, } from "lucide-react";
 
 export default function MEEPage() {
-  const [baseDept] = useState<typeof MEE>(MEE);
-
-
-  const dept = useMemo(() => mergeDeptWithOverrides(baseDept), [baseDept]);
+  const dept = MEE;
 
   useEffect(() => {
     if (!dept) return;
@@ -43,13 +38,6 @@ export default function MEEPage() {
             {dept.title}
           </h1>
           <p className="mt-2 text-sm text-gray-500">{dept.subtitle}</p>
-          <div className="mt-5">
-            <Link
-              to={`/dept/${dept.code}/admin`}
-              className="inline-flex items-center rounded-full border border-[#a90000] px-5 py-2 text-sm font-semibold text-[#a90000] hover:bg-[#a90000] hover:text-white">
-              Open Department Admin
-            </Link>
-          </div>
         </div>
 
         <div className="mt-8 grid grid-cols-12 gap-5">

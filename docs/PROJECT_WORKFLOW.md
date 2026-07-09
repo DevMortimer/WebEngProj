@@ -34,9 +34,9 @@ Content is now file-based and shareable via git.
 
 ### Landing content
 
-Landing content is centralized in one file:
+Landing content is centralized in one JSON file:
 
-- `src/data/landing.ts`
+- `public/data/landing.json`
 
 Each landing branch edits only its own block inside this file.
 
@@ -52,7 +52,7 @@ Each department also has its own page file in `src/Pages/departments/`:
 
 ## 3) Scope Rules
 
-- Landing teams edit only their assigned JSON file and section assets.
+- Landing teams edit only their assigned block in `public/data/landing.json` and section assets.
 - Department teams edit only their department JSON file, their own department TSX page file, and department-specific assets.
 - Avoid editing shared React files unless explicitly requested by maintainer.
 
@@ -64,20 +64,23 @@ Each department also has its own page file in `src/Pages/departments/`:
 4. Resolve conflicts immediately if scope was violated.
 5. Keep commits short and focused.
 
-## 5) Admin Editor Usage
+## 5) Content Editing
 
-Route: `/dept/<CODE>/admin`
+All editable content changes are file-based and committed through git.
 
-- Form edits are local for preview/testing.
-- Use **Download `<CODE>.json`** or **Copy JSON**.
-- Replace `public/data/departments/<CODE>.json` with exported content.
-- Commit and push that JSON file.
+### Landing content
 
-Landing admin route: `/admin`
+- Open `public/data/landing.json` in the GitHub web interface.
+- Edit only the section block assigned to your group.
+- Commit the JSON change.
+- Let the deployment rebuild and publish the update.
 
-- Edit landing blocks in form fields.
-- Save local override for preview/testing.
-- Use download/copy output as your handoff snapshot.
+### Department content
+
+- Open `public/data/departments/<CODE>.json` in the GitHub web interface.
+- Edit only your department JSON file.
+- Commit the JSON change.
+- Let the deployment rebuild and publish the update.
 
 ## 6) Required Department Sections
 

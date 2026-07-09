@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, DraftingCompass, Cpu } from "lucide-react";
 import { CircuitBackground } from "../../../public/departments/CPE/Components/CircuitBackground";
 // 1. Updated Import
@@ -8,15 +7,12 @@ import CpeScrollButton from "../../../public/departments/CPE/Components/CpeScrol
 import CPEnavbar from "../../components/CPEnavbar";
 import SectionTitle from "../../components/SectionTitle";
 import Footer from "../../components/Footer";
-import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { CPE } from "../../data/department/CPE";
 import type { NavId } from "../../types/nav"; // Import your type for safety
 import "../../styles/departments/CPE.css";
 
 export default function CPEPage() {
-  const [baseDept] = useState<typeof CPE>(CPE);
-
-  const dept = useMemo(() => mergeDeptWithOverrides(baseDept), [baseDept]);
+  const dept = CPE;
   const [activeSoIndex, setActiveSoIndex] = useState(0);
   const [activeYear, setActiveYear] = useState(0);
 
@@ -66,14 +62,6 @@ export default function CPEPage() {
             {dept.title}
           </h1>
           <p className="mt-2 text-sm text-slate-500">{dept.subtitle}</p>
-          <div className="mt-5">
-            <Link
-              to={`/dept/${dept.code}/admin`}
-              className="inline-flex items-center rounded-full border border-blue-600 px-5 py-2 text-sm font-semibold text-blue-600 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] hover:-translate-y-1"
-            >
-              Open Department Admin
-            </Link>
-          </div>
         </div>
 
         <section className="p-4 md:p-8">

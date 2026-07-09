@@ -2,10 +2,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Building2, CalendarDays, Send, Users, ArrowUpRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { landingPageData, type LandingPageData } from "../data/landing";
-import {
-  loadLandingDraft,
-  mergeLandingWithOverrides,
-} from "../lib/landingAdmin";
 import { Mail } from "lucide-react";
 import Footer from "../components/Footer";
 
@@ -935,7 +931,7 @@ function StatisticsSection({ data }: { data: Sections["statistics"] }) {
 
 function ContactSection({ data }: { data: Sections["contact"] }) {
   // TODO: use data
-  data = data; // doing it this way for now so that the website actually builds...
+  void data; // doing it this way for now so that the website actually builds...
 
   const contacts = [
     {
@@ -1019,26 +1015,7 @@ function ContactSection({ data }: { data: Sections["contact"] }) {
 }
 
 export default function LandingPage() {
-  const isPreviewMode = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    return new URLSearchParams(window.location.search).get("preview") === "landing";
-  }, []);
-
-  const [data, setData] = useState(() => {
-    if (isPreviewMode) return loadLandingDraft() ?? mergeLandingWithOverrides(landingPageData);
-    return mergeLandingWithOverrides(landingPageData);
-  });
-
-  useEffect(() => {
-    if (!isPreviewMode) return;
-    const onStorage = (event: StorageEvent) => {
-      if (event.key !== "landing-admin-draft") return;
-      setData(loadLandingDraft() ?? mergeLandingWithOverrides(landingPageData));
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, [isPreviewMode]);
-
+  const data = landingPageData;
   const { navbar, hero, sections } = data;
 
   const scrollToPrograms = (e: React.MouseEvent) => {

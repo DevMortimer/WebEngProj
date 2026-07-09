@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useState, useRef } from "react";
-import { Link } from "react-router-dom";
 import MFENavbar from "../../components/MFEnavbar";
-import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { MFE } from "../../data/department/MFE";
 import "../../styles/departments/MFE.css";
 
@@ -57,18 +55,15 @@ const AnimatedStat = ({ value, label, Component }: AnimatedStatProps) => {
 };
 
 export default function MFEPage() {
-  const [baseDept] = useState<typeof MFE>(MFE);
   const [activeId, setActiveId] = useState<string>("home");
   
   // FIX 1: ADDED REF TO PREVENT CLICK/SCROLL FIGHTING
   const isClickScrolling = useRef(false);
   
-  const deptWithNewAccent = useMemo(() => ({
-    ...baseDept,
-    theme: { ...baseDept.theme, accentHex: "#26bac8" }
-  }), [baseDept]);
-
-  const dept = useMemo(() => mergeDeptWithOverrides(deptWithNewAccent), [deptWithNewAccent]);
+  const dept = useMemo(() => ({
+    ...MFE,
+    theme: { ...MFE.theme, accentHex: "#26bac8" }
+  }), []);
 
   // FIX 1: UPDATED SCROLL LOGIC TO DETECT BOTTOM OF PAGE
   useEffect(() => {
@@ -183,16 +178,6 @@ export default function MFEPage() {
                 {dept.subtitle}
               </p>
               <div className="flex flex-wrap justify-center lg:justify-start gap-5">
-                <Link 
-                  to={`/dept/${dept.code}/admin`} 
-                  className="relative inline-flex items-center gap-6 px-10 py-5 bg-zinc-950 text-white border border-white/10 rounded-sm font-black text-[9px] uppercase tracking-[0.3em] overflow-hidden transition-all duration-500 hover:border-white/40 group"
-                >
-                  <span className="relative z-10">Open Department Admin</span>
-                  <svg viewBox="0 0 24 24" className="w-3 h-3 fill-none stroke-white stroke-[3] transition-transform duration-500 group-hover:translate-x-1">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                </Link>
                 <button 
                   onClick={() => onNav('peo')} 
                   className="group relative px-6 py-3 bg-white text-black rounded-sm overflow-hidden transition-all duration-500 active:scale-95 cursor-pointer whitespace-nowrap"
