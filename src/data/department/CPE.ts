@@ -1,6 +1,9 @@
+import { mergeWithShape } from "../../lib/jsonShape";
+import cpeJson from "../../../public/data/departments/CPE.json";
+
 const base = "/departments/CPE"; // public folder path
 
-export const CPE = {
+const CPE_defaults = {
   code: "CPE",
   title: "COMPUTER ENGINEERING",
   subtitle: "Bachelor of Science in Computer Engineering",
@@ -304,3 +307,7 @@ export const CPE = {
     ],
   },
 };
+
+// public/data/departments/CPE.json is the editable source of truth,
+// layered over the typed defaults above (missing fields fall back safely).
+export const CPE = mergeWithShape(CPE_defaults, cpeJson);

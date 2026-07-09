@@ -1,6 +1,9 @@
+import { mergeWithShape } from "../../lib/jsonShape";
+import meeJson from "../../../public/data/departments/MEE.json";
+
 const base = "/departments/MEE";
 
-export const MEE = {
+const MEE_defaults = {
   code: "MEE",
   title: "MECHATRONICS ENGINEERING",
   subtitle: "Bachelor of Science in Mechatronics Engineering",
@@ -234,3 +237,7 @@ export const MEE = {
     ],
   },
 };
+
+// public/data/departments/MEE.json is the editable source of truth,
+// layered over the typed defaults above (missing fields fall back safely).
+export const MEE = mergeWithShape(MEE_defaults, meeJson);

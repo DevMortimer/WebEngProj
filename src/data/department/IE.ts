@@ -1,6 +1,9 @@
+import { mergeWithShape } from "../../lib/jsonShape";
+import ieJson from "../../../public/data/departments/IE.json";
+
 const base = "/departments/IE";
 
-export const IE = {
+const IE_defaults = {
   code: "IE",
   title: "INDUSTRIAL ENGINEERING",
   subtitle: "Bachelor of Science in Industrial Engineering",
@@ -399,3 +402,7 @@ programOverview: {
 ],
   },
 };
+
+// public/data/departments/IE.json is the editable source of truth,
+// layered over the typed defaults above (missing fields fall back safely).
+export const IE = mergeWithShape(IE_defaults, ieJson);

@@ -1,4 +1,7 @@
-export const ME = {
+import { mergeWithShape } from "../../lib/jsonShape";
+import meJson from "../../../public/data/departments/ME.json";
+
+const ME_defaults = {
   code: "ME",
   title: "MECHANICAL ENGINEERING",
   shortTitle: "Mechanical Engineering",
@@ -475,3 +478,7 @@ export const ME = {
     copyright: "Copyright (c) COE. All rights reserved.",
   },
 };
+
+// public/data/departments/ME.json is the editable source of truth,
+// layered over the typed defaults above (missing fields fall back safely).
+export const ME = mergeWithShape(ME_defaults, meJson);

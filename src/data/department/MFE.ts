@@ -1,6 +1,9 @@
+import { mergeWithShape } from "../../lib/jsonShape";
+import mfeJson from "../../../public/data/departments/MFE.json";
+
 const base = "/departments/MFE";
 
-export const MFE = {
+const MFE_defaults = {
   code: "MFE",
   title: "MANUFACTURING ENGINEERING",
   subtitle: "Bachelor of Science in Manufacturing Engineering",
@@ -101,3 +104,7 @@ export const MFE = {
     ],
   },
 };
+
+// public/data/departments/MFE.json is the editable source of truth,
+// layered over the typed defaults above (missing fields fall back safely).
+export const MFE = mergeWithShape(MFE_defaults, mfeJson);

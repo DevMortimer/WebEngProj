@@ -1,5 +1,17 @@
 # Department Page Customization Guide
 
+## Where the content actually comes from
+
+Each department page renders from its JSON file in
+`public/data/departments/<CODE>.json`. **Edit that JSON to change the content**
+(faculty, overview, curriculum, etc.), commit, and push — the deploy rebuilds
+and the live site updates.
+
+The matching `src/data/department/<CODE>.ts` file holds typed default values and
+the page's data shape; the JSON is layered over it (missing JSON fields fall
+back to the defaults). You normally only edit the JSON. Only touch the `.ts`
+file to add a brand-new field to the page's data shape.
+
 Each department has its own full page file:
 
 - `src/Pages/departments/CE.tsx`

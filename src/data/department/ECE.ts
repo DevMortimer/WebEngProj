@@ -1,3 +1,6 @@
+import { mergeWithShape } from "../../lib/jsonShape";
+import eceJson from "../../../public/data/departments/ECE.json";
+
 const base = "/departments/ECE";
 
 const facultyMembers = [
@@ -27,7 +30,7 @@ const facultyMembers = [
   { name: "Engr. Dion Michael Mendoza", role: "Faculty", image: `${base}/engr_mendoza.png` },
 ];
 
-export const ECE = {
+const ECE_defaults = {
   code: "ECE",
   title: "ELECTRONICS ENGINEERING",
   subtitle: "Bachelor of Science in Electronics Engineering",
@@ -314,3 +317,7 @@ export const ECE = {
     ],
   },
 };
+
+// public/data/departments/ECE.json is the editable source of truth,
+// layered over the typed defaults above (missing fields fall back safely).
+export const ECE = mergeWithShape(ECE_defaults, eceJson);

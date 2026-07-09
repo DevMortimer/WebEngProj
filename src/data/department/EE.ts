@@ -1,6 +1,9 @@
+import { mergeWithShape } from "../../lib/jsonShape";
+import eeJson from "../../../public/data/departments/EE.json";
+
 const base = "/departments/EE";
 
-export const EE = {
+const EE_defaults = {
   code: "EE",
   title: "ELECTRICAL ENGINEERING",
   subtitle: "Bachelor of Science in Electrical Engineering",
@@ -546,3 +549,7 @@ export const EE = {
     ]
   }
 };
+
+// public/data/departments/EE.json is the editable source of truth,
+// layered over the typed defaults above (missing fields fall back safely).
+export const EE = mergeWithShape(EE_defaults, eeJson);
